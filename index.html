@@ -1,0 +1,1068 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>AIptieka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --ink:#173332;
+  --ink-soft:#52716e;
+  --paper:#f8f6ec;
+  --paper-raised:#fcfaf5;
+  --amber:#ff865d;
+  --amber-deep:#f9561f;
+  --green:#d7ff63;
+  --green-deep:#164947;
+  --line:#d9ded5;
+  --chip-live-bg:#d9f5df; --chip-live-fg:#164947;
+  --chip-soon-bg:#ffe9e2; --chip-soon-fg:#c73605;
+  --chip-planned-fg:#78766b; --chip-planned-bd:#c7c8bc;
+  --band-amber:#ffede7; --band-green:#d9f5df;
+  --shadow:0 1px 2px rgba(21,20,15,.07), 0 10px 26px -14px rgba(21,20,15,.28);
+  --radius-s:5px; --radius-m:12px;
+  --font-display:'Archivo Black','Arial Black',sans-serif;
+  --font-cond:'Barlow Condensed','Arial Narrow',sans-serif;
+  --font-body:'Barlow','Segoe UI',sans-serif;
+  --font-mono:'IBM Plex Mono','Consolas',monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ink:#f8f6ed; --ink-soft:#99c2be;
+    --paper:#0e201f; --paper-raised:#163130;
+    --amber:#ff9470; --amber-deep:#ff6733;
+    --green:#e1f7a1; --green-deep:#64b4b1;
+    --line:#265453;
+    --chip-live-bg:#1d3534; --chip-live-fg:#bae8c4;
+    --chip-soon-bg:#3f1e12; --chip-soon-fg:#ffab8f;
+    --chip-planned-fg:#918d7c; --chip-planned-bd:#3d3a2f;
+    --band-amber:#371a10; --band-green:#152827;
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 32px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#f8f6ed; --ink-soft:#99c2be;
+  --paper:#0e201f; --paper-raised:#163130;
+  --amber:#ff9470; --amber-deep:#ff6733;
+  --green:#e1f7a1; --green-deep:#64b4b1;
+  --line:#265453;
+  --chip-live-bg:#1d3534; --chip-live-fg:#bae8c4;
+  --chip-soon-bg:#3f1e12; --chip-soon-fg:#ffab8f;
+  --chip-planned-fg:#918d7c; --chip-planned-bd:#3d3a2f;
+  --band-amber:#371a10; --band-green:#152827;
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 32px -16px rgba(0,0,0,.7);
+}
+
+/* ============ BASE ============ */
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} *,*::before,*::after{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;} }
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--font-body); font-size:16.5px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.topbar{position:fixed; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg, var(--amber), var(--green)); z-index:150;}
+.band-amber{background:var(--band-amber);}
+.band-green{background:var(--band-green);}
+img{max-width:100%; display:block;}
+a{color:inherit;}
+button{font:inherit; color:inherit;}
+h1,h2,h3{font-family:var(--font-display); line-height:1.05; text-wrap:balance; margin:0;}
+p{margin:0;}
+.wrap{width:min(1180px, 100% - 3rem); margin-inline:auto;}
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
+.skip-link{position:absolute; left:1rem; top:-3rem; background:var(--amber); color:var(--ink); padding:.6rem 1rem; border-radius:var(--radius-s); z-index:200; transition:top .15s;}
+.skip-link:focus{top:1rem;}
+:focus-visible{outline:3px solid var(--green); outline-offset:2px;}
+.eyebrow{
+  font-family:var(--font-cond); font-weight:700; text-transform:uppercase;
+  letter-spacing:.11em; font-size:.82rem; color:var(--green-deep);
+  display:inline-flex; align-items:center; gap:.5em;
+}
+[data-theme="dark"] .eyebrow, :root:not([data-theme="light"]) .eyebrow{color:var(--green);}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .eyebrow{color:var(--green);} }
+.eyebrow::before{content:""; width:1.4em; height:2px; background:var(--amber); display:inline-block;}
+h2.section-title{font-size:clamp(1.9rem,3.6vw,2.9rem); margin-top:.5rem;}
+.section-lede{font-size:1.08rem; color:var(--ink-soft); max-width:42rem; margin-top:.9rem;}
+.mono{font-family:var(--font-mono);}
+.tabnum{font-variant-numeric:tabular-nums;}
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex; align-items:center; gap:.5rem; white-space:nowrap;
+  font-family:var(--font-cond); font-weight:700; text-transform:uppercase; letter-spacing:.05em;
+  font-size:.92rem; text-decoration:none; cursor:pointer; border:2px solid var(--ink);
+  padding:.85rem 1.7rem .85rem 1.25rem; background:transparent; color:var(--ink);
+  transition:transform .15s ease, background-color .15s ease, color .15s ease;
+}
+.btn--primary{
+  background:var(--amber); border-color:var(--amber); color:#1a1400;
+  clip-path:polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);
+}
+.btn--primary:hover{background:var(--amber-deep); border-color:var(--amber-deep); transform:translateX(3px);}
+.btn--ghost:hover{background:var(--ink); color:var(--paper);}
+.btn--onDark{border-color:var(--paper); color:var(--paper);}
+.btn--onDark:hover{background:var(--paper); color:var(--ink);}
+.btn--small{padding:.55rem 1.2rem .55rem 1rem; font-size:.78rem;}
+.btn[disabled]{opacity:.5; cursor:not-allowed;}
+
+.chip{display:inline-flex; align-items:center; gap:.35em; border-radius:999px; padding:.28rem .75rem; font-family:var(--font-mono); font-size:.7rem; text-transform:uppercase; letter-spacing:.04em; white-space:nowrap;}
+.chip--live{background:var(--chip-live-bg); color:var(--chip-live-fg);}
+.chip--soon{background:var(--chip-soon-bg); color:var(--chip-soon-fg);}
+.chip--planned{background:transparent; color:var(--chip-planned-fg); border:1px dashed var(--chip-planned-bd);}
+.chip--live::before{content:"●"; font-size:.6em;}
+
+/* ============ HEADER ============ */
+.site-header{position:sticky; top:0; z-index:100; background:color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+.header-inner{display:flex; align-items:center; justify-content:space-between; gap:1rem; padding-block:.85rem;}
+.logo{display:flex; align-items:center; gap:.55rem; text-decoration:none; flex-shrink:0;}
+.logo-mark{width:34px; height:34px; flex-shrink:0;}
+.logo-word{font-family:var(--font-display); font-size:1.28rem; letter-spacing:-.01em;}
+.accent-ai{color:var(--amber);}
+.nav{display:flex; align-items:center; gap:1.7rem; font-family:var(--font-cond); font-weight:600; font-size:1rem; letter-spacing:.01em;}
+.nav a{text-decoration:none; opacity:.85;}
+.nav a:hover{opacity:1; color:var(--green-deep);}
+:root:not([data-theme="light"]) .nav a:hover{color:var(--green);}
+.header-actions{display:flex; align-items:center; gap:.7rem;}
+.lang-switch{display:flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; font-family:var(--font-mono); font-size:.72rem;}
+.lang-switch button{padding:.4rem .62rem; background:transparent; border:0; cursor:pointer; color:var(--ink-soft);}
+.lang-switch button.is-active{background:var(--ink); color:var(--paper);}
+.icon-btn{width:38px; height:38px; border-radius:999px; border:1px solid var(--line); background:transparent; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;}
+.icon-btn svg{width:18px; height:18px;}
+.nav-toggle{display:none; flex-direction:column; gap:4px; padding:.5rem;}
+.nav-toggle span, .nav-toggle::before, .nav-toggle::after{content:""; width:22px; height:2px; background:var(--ink); display:block;}
+@media (max-width:960px){
+  .nav{position:absolute; top:100%; left:0; right:0; background:var(--paper); border-bottom:1px solid var(--line); flex-direction:column; align-items:flex-start; gap:0; padding:.5rem 0; display:none;}
+  .nav.is-open{display:flex;}
+  .nav a{padding:.75rem 1.5rem; width:100%;}
+  .nav-toggle{display:flex;}
+  .header-actions .btn--small{display:none;}
+}
+@media (max-width:600px){ .lang-switch{order:3;} }
+
+/* ============ HERO ============ */
+.hero{padding-block-start:clamp(2.5rem,5vw,4.5rem); position:relative; overflow:hidden;}
+.hero-inner{display:grid; grid-template-columns:1.05fr 1fr; gap:clamp(2rem,4vw,4rem); align-items:center;}
+@media (max-width:900px){ .hero-inner{grid-template-columns:1fr;} }
+.hero h1{font-size:clamp(2.4rem,5.4vw,4.4rem); margin-top:.7rem;}
+.hero-sub{font-size:1.14rem; color:var(--ink-soft); max-width:34rem; margin-top:1.1rem;}
+.hero-ctas{display:flex; flex-wrap:wrap; gap:1rem; margin-top:1.9rem;}
+@keyframes fadeUp{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
+.hero-copy>*{opacity:1; animation:fadeUp .7s ease both;}
+.hero-copy>*:nth-child(1){animation-delay:.02s;}
+.hero-copy>*:nth-child(2){animation-delay:.1s;}
+.hero-copy>*:nth-child(3){animation-delay:.18s;}
+.hero-copy>*:nth-child(4){animation-delay:.26s;}
+
+.hero-scene{position:relative; aspect-ratio:6/5; border-radius:var(--radius-m); overflow:hidden; border:1px solid var(--line); background:linear-gradient(150deg, var(--band-amber) 0%, var(--paper-raised) 48%, var(--band-green) 100%); box-shadow:var(--shadow);}
+.hero-quick{display:flex; flex-wrap:wrap; gap:.8rem; margin-top:1.5rem;}
+.hero-quick__item{display:flex; align-items:center; gap:.55rem; font-family:var(--font-cond); font-weight:600; font-size:.92rem; text-decoration:none; color:var(--ink); background:var(--paper-raised); border:1px solid var(--line); padding:.6rem 1.05rem; border-radius:999px; box-shadow:var(--shadow); transition:border-color .15s ease, transform .15s ease;}
+.hero-quick__item svg{width:18px; height:18px; flex-shrink:0;}
+.hero-quick__item:hover{border-color:var(--green); transform:translateY(-2px);}
+.hero-scene__road{position:absolute; left:-15%; right:-15%; bottom:-18%; height:58%; background:var(--ink); transform:perspective(340px) rotateX(56deg); transform-origin:bottom center;}
+.hero-scene__stripe{position:absolute; left:50%; bottom:-18%; width:10px; height:70%; margin-left:-5px; background:repeating-linear-gradient(180deg, var(--amber) 0 26px, transparent 26px 52px); transform:perspective(340px) rotateX(56deg); transform-origin:bottom center; opacity:.85;}
+.hero-scene__kiosk{position:absolute; right:9%; bottom:30%; width:26%; max-width:150px;}
+.hero-scene__kiosk .roof{height:10px; background:var(--green);}
+.hero-scene__kiosk .body{background:var(--paper-raised); border:1px solid var(--line); border-top:0; padding:10px; box-shadow:var(--shadow);}
+.hero-scene__kiosk .window{background:var(--ink); border-radius:3px; height:38px; position:relative; overflow:hidden;}
+.hero-scene__kiosk .window::after{content:""; position:absolute; inset:4px; border:1px dashed var(--amber); border-radius:2px; opacity:.7;}
+.scan-pulse{position:absolute; width:10px; height:10px; border-radius:999px; background:var(--green); left:calc(9% + 13%); bottom:44%; transform:translateX(-50%);}
+.scan-pulse::after{content:""; position:absolute; inset:-6px; border-radius:999px; border:2px solid var(--green); animation:pulse 2s ease-out infinite;}
+@keyframes pulse{0%{transform:scale(.5); opacity:.9;} 100%{transform:scale(2.6); opacity:0;}}
+.hero-car{position:absolute; bottom:9%; left:0; width:96px; animation:driveLoop 9s ease-in-out infinite;}
+@keyframes driveLoop{
+  0%{transform:translateX(-40px);}
+  24%{transform:translateX(calc(66vw * 0 + 47%));}
+  26%{transform:translateX(47%);}
+  58%{transform:translateX(47%);}
+  62%{transform:translateX(47%);}
+  88%{transform:translateX(340px);}
+  100%{transform:translateX(340px);}
+}
+.hero-packet{position:absolute; left:calc(9% + 6%); bottom:31%; width:22px; height:14px; border-radius:3px; background:var(--amber); opacity:0; animation:packetPop 9s ease-in-out infinite;}
+@keyframes packetPop{
+  0%,48%{opacity:0; transform:translate(0,0) scale(.5);}
+  53%{opacity:1; transform:translate(-40px,6px) scale(1);}
+  60%{opacity:1; transform:translate(-96px,10px) scale(1);}
+  67%,100%{opacity:0; transform:translate(-110px,10px) scale(.7);}
+}
+.hero-scene__ground-label{position:absolute; left:6%; bottom:6%; font-family:var(--font-mono); font-size:.68rem; color:var(--ink-soft); background:var(--paper-raised); padding:.2rem .5rem; border:1px solid var(--line); border-radius:3px;}
+
+.marker-strip{margin-top:clamp(3rem,6vw,4.5rem); display:grid; grid-template-columns:repeat(4,1fr); border-top:1px dashed var(--line); border-bottom:1px dashed var(--line);}
+.marker{padding:1.5rem 1rem; border-left:1px dashed var(--line); text-align:center;}
+.marker:first-child{border-left:0;}
+.marker__value{font-family:var(--font-display); font-size:clamp(1.5rem,2.6vw,2.1rem); color:var(--green-deep);}
+:root:not([data-theme="light"]) .marker__value{color:var(--green);}
+.marker:nth-child(2n) .marker__value{color:var(--amber-deep);}
+:root:not([data-theme="light"]) .marker:nth-child(2n) .marker__value{color:var(--amber);}
+.marker__label{font-family:var(--font-cond); font-size:.82rem; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); margin-top:.3rem;}
+@media (max-width:700px){ .marker-strip{grid-template-columns:repeat(2,1fr);} .marker:nth-child(3){border-left:0;} }
+
+/* ============ ROUTE SECTIONS (generic) ============ */
+.route-section{padding-block:clamp(3.2rem,6vw,5.5rem); border-top:1px dashed var(--line);}
+.route-section__head{max-width:50rem;}
+
+/* PROBLEM */
+.problem-grid{margin-top:2.6rem; display:flex; flex-direction:column;}
+.problem-row{display:grid; grid-template-columns:auto 1fr; gap:1.3rem; align-items:flex-start; padding-block:1.5rem; border-top:1px solid var(--line);}
+.problem-row:first-child{border-top:0;}
+.problem-row:nth-child(even){grid-template-columns:auto 1fr;}
+.problem-icon{width:46px; height:46px; flex-shrink:0;}
+.problem-row h3{font-family:var(--font-cond); font-weight:700; font-size:1.25rem; text-transform:uppercase; letter-spacing:.02em;}
+.problem-row p{color:var(--ink-soft); margin-top:.35rem; max-width:38rem;}
+
+/* HOW IT WORKS */
+.steps{margin-top:2.6rem; display:grid; grid-template-columns:1fr 1.15fr; gap:2.5rem; align-items:start;}
+@media (max-width:860px){ .steps{grid-template-columns:1fr;} }
+.step-list{display:flex; flex-direction:column;}
+.step{display:grid; grid-template-columns:auto 1fr; gap:1rem; padding:1.2rem; border:1px solid transparent; border-radius:var(--radius-s); cursor:pointer; text-align:left; background:transparent;}
+.step + .step{margin-top:.4rem;}
+.step__num{font-family:var(--font-mono); font-size:.85rem; color:var(--ink-soft); border:1px solid var(--line); width:2.2rem; height:2.2rem; border-radius:999px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.step.is-active{background:var(--paper-raised); border-color:var(--line); box-shadow:var(--shadow);}
+.step.is-active .step__num{background:var(--amber); border-color:var(--amber); color:#1a1400;}
+.step h3{font-family:var(--font-cond); font-weight:700; font-size:1.2rem; text-transform:uppercase;}
+.step p{color:var(--ink-soft); margin-top:.3rem; font-size:.96rem;}
+.step-visual{border:1px solid var(--line); border-radius:var(--radius-m); background:var(--paper-raised); box-shadow:var(--shadow); padding:2.4rem 1.6rem; display:flex; align-items:center; justify-content:center; min-height:280px;}
+.step-visual svg{width:100%; max-width:280px; height:auto;}
+
+/* TWO PATHS */
+.paths-grid{margin-top:2.6rem; display:grid; grid-template-columns:1fr 1fr; gap:1.6rem;}
+@media (max-width:860px){ .paths-grid{grid-template-columns:1fr;} }
+.path-card{border:1px solid var(--line); border-radius:var(--radius-m); background:var(--paper-raised); padding:2rem; box-shadow:var(--shadow); display:flex; flex-direction:column;}
+.path-card__icon{width:42px; height:42px;}
+.path-card h3{font-size:1.5rem; margin-top:1rem;}
+.path-card p{color:var(--ink-soft); margin-top:.6rem; flex-grow:1;}
+.path-card .btn{margin-top:1.6rem; align-self:flex-start;}
+.path-card--accent{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+.path-card--accent p{color:var(--ink-soft);}
+:root:not([data-theme="light"]) .path-card--accent{background:var(--paper-raised); color:var(--ink);}
+
+.reserve{margin-top:2.2rem; border:1px solid var(--line); border-radius:var(--radius-m); background:var(--paper-raised); box-shadow:var(--shadow); padding:clamp(1.5rem,3vw,2.4rem); perspective:900px;}
+.reserve__grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem;}
+@media (max-width:760px){ .reserve__grid{grid-template-columns:1fr;} }
+.field label{display:block; font-family:var(--font-cond); text-transform:uppercase; font-size:.78rem; letter-spacing:.05em; color:var(--ink-soft); margin-bottom:.4rem;}
+.field select, .field input{width:100%; font:inherit; font-family:var(--font-mono); font-size:.92rem; padding:.7rem .8rem; border:1px solid var(--line); border-radius:var(--radius-s); background:var(--paper); color:var(--ink);}
+.reserve__foot{display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-top:1.4rem; flex-wrap:wrap;}
+.reserve__hint{font-size:.85rem; color:var(--ink-soft); max-width:26rem;}
+.reserve__success{display:none; margin-top:1.2rem; padding:1rem 1.2rem; background:var(--chip-live-bg); color:var(--chip-live-fg); border-radius:var(--radius-s); font-family:var(--font-cond); font-weight:600;}
+.reserve__success.is-visible{display:block;}
+
+/* DIRECTORY */
+.filters{margin-top:2.4rem; display:flex; gap:.6rem; flex-wrap:wrap;}
+.filter-btn{border:1px solid var(--line); background:transparent; padding:.5rem 1.1rem; border-radius:999px; font-family:var(--font-cond); font-weight:600; text-transform:uppercase; font-size:.82rem; letter-spacing:.03em; cursor:pointer;}
+.filter-btn.is-active{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+.directory-list{margin-top:1.6rem; display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1rem;}
+.directory-item{display:flex; gap:1rem; align-items:flex-start; padding:1.2rem; border:1px solid var(--line); border-radius:var(--radius-s); text-decoration:none; color:var(--ink); background:var(--paper-raised); transition:transform .15s ease, box-shadow .15s ease;}
+.directory-item:hover{transform:translateY(-3px); box-shadow:var(--shadow);}
+.directory-item__mark{width:42px; height:42px; border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:.85rem; color:#1a1400; background:var(--amber);}
+.directory-item h4{font-family:var(--font-cond); font-weight:700; font-size:1.03rem; text-transform:uppercase; display:flex; align-items:center; gap:.5rem;}
+.directory-item p{color:var(--ink-soft); font-size:.88rem; margin-top:.25rem;}
+.directory-item .cc{font-family:var(--font-mono); font-size:.65rem; color:var(--ink-soft); border:1px solid var(--line); padding:.05rem .35rem; border-radius:3px;}
+.directory-note{margin-top:1.6rem; font-size:.85rem; color:var(--ink-soft); max-width:42rem;}
+
+/* ROADMAP / ROUTE */
+.highway{margin-top:3rem; position:relative; padding-block:2rem;}
+.highway__line{position:relative; height:4px; background:var(--line); border-radius:2px;}
+.highway__line::before{content:""; position:absolute; inset:0; background:repeating-linear-gradient(90deg, var(--amber) 0 20px, transparent 20px 40px); opacity:.9;}
+.highway__stops{display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; margin-top:-2px;}
+@media (max-width:760px){ .highway__stops{grid-template-columns:1fr 1fr;} }
+.stop{position:relative; padding-top:1.6rem;}
+.stop::before{content:""; position:absolute; top:-4px; left:0; width:12px; height:12px; border-radius:999px; background:var(--ink); border:3px solid var(--paper);}
+.stop.is-live::before{background:var(--green);}
+.stop h4{font-family:var(--font-cond); font-weight:700; text-transform:uppercase; font-size:1.02rem; margin-top:.6rem;}
+.stop .cities{font-size:.88rem; color:var(--ink-soft); margin-top:.3rem;}
+.stop .chip{margin-top:.6rem;}
+
+/* INVESTORS */
+.investors{background:var(--ink); color:var(--paper);}
+:root:not([data-theme="light"]) .investors{background:var(--paper-raised); color:var(--ink);}
+.investors .eyebrow{color:var(--amber);}
+.investors .section-lede{color:#d9d6c8;}
+:root:not([data-theme="light"]) .investors .section-lede{color:var(--ink-soft);}
+.inv-grid{margin-top:2.6rem; display:grid; grid-template-columns:1.3fr 1fr; gap:2.5rem;}
+@media (max-width:900px){ .inv-grid{grid-template-columns:1fr;} }
+.inv-table{width:100%; border-collapse:collapse; font-size:.92rem;}
+.inv-table th,.inv-table td{padding:.75rem .6rem; text-align:left; border-bottom:1px solid rgba(255,255,255,.14);}
+:root:not([data-theme="light"]) .inv-table th, :root:not([data-theme="light"]) .inv-table td{border-bottom:1px solid var(--line);}
+.inv-table th{font-family:var(--font-cond); text-transform:uppercase; letter-spacing:.04em; font-size:.78rem; color:var(--amber);}
+.inv-table td.num{font-family:var(--font-mono);}
+.inv-table-wrap{overflow-x:auto;}
+.inv-ask{border:1px solid rgba(255,255,255,.25); border-radius:var(--radius-m); padding:1.8rem;}
+:root:not([data-theme="light"]) .inv-ask{border-color:var(--line);}
+.inv-ask .amount{font-family:var(--font-display); font-size:2.2rem; color:var(--amber);}
+.inv-ask a{color:var(--amber); text-decoration:underline;}
+
+/* WAITLIST */
+.waitlist-grid{margin-top:2.6rem; display:grid; grid-template-columns:1fr 1fr; gap:2.5rem;}
+@media (max-width:860px){ .waitlist-grid{grid-template-columns:1fr;} }
+form.wl{display:flex; flex-direction:column; gap:1.1rem;}
+.wl-row{display:grid; grid-template-columns:1fr 1fr; gap:1.1rem;}
+@media (max-width:520px){ .wl-row{grid-template-columns:1fr;} }
+.wl label{display:block; font-family:var(--font-cond); text-transform:uppercase; font-size:.78rem; letter-spacing:.05em; color:var(--ink-soft); margin-bottom:.4rem;}
+.wl input, .wl select{width:100%; font:inherit; padding:.75rem .85rem; border:1px solid var(--line); border-radius:var(--radius-s); background:var(--paper-raised); color:var(--ink);}
+.wl .checkline{display:flex; align-items:flex-start; gap:.6rem; font-size:.92rem;}
+.wl .checkline input{width:auto; margin-top:.2rem;}
+.wl-success{display:none; border:1px solid var(--chip-live-fg); background:var(--chip-live-bg); color:var(--chip-live-fg); padding:1.4rem; border-radius:var(--radius-s); font-family:var(--font-cond); font-weight:600;}
+.wl-success.is-visible{display:block;}
+.share{margin-top:1.6rem; display:flex; flex-wrap:wrap; gap:.6rem;}
+.share a, .share button{display:inline-flex; align-items:center; gap:.5rem; border:1px solid var(--line); padding:.55rem 1rem; border-radius:999px; text-decoration:none; font-size:.85rem; background:var(--paper-raised); cursor:pointer;}
+.share svg{width:16px; height:16px;}
+.route-map-card{border:1px solid var(--line); border-radius:var(--radius-m); padding:1.8rem; background:var(--paper-raised);}
+
+/* FAQ */
+.faq-list{margin-top:2.4rem; max-width:48rem;}
+.faq-item{border-top:1px solid var(--line);}
+.faq-item:last-child{border-bottom:1px solid var(--line);}
+.faq-q{width:100%; text-align:left; background:none; border:0; padding:1.3rem 0; display:flex; justify-content:space-between; align-items:center; gap:1rem; cursor:pointer; font-family:var(--font-cond); font-weight:700; font-size:1.08rem;}
+.faq-q .plus{width:22px; height:22px; position:relative; flex-shrink:0;}
+.faq-q .plus::before,.faq-q .plus::after{content:""; position:absolute; background:var(--ink); top:50%; left:50%; transform:translate(-50%,-50%);}
+.faq-q .plus::before{width:14px; height:2px;}
+.faq-q .plus::after{width:2px; height:14px; transition:transform .2s;}
+.faq-item.is-open .plus::after{transform:translate(-50%,-50%) rotate(90deg) scaleX(0);}
+.faq-a{max-height:0; overflow:hidden; transition:max-height .25s ease;}
+.faq-a p{color:var(--ink-soft); padding-bottom:1.3rem; max-width:38rem;}
+.faq-item.is-open .faq-a{max-height:16rem;}
+
+/* FOOTER */
+.site-footer{border-top:1px solid var(--line); padding-block:3rem; margin-top:0;}
+.footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:2.5rem;}
+@media (max-width:760px){ .footer-grid{grid-template-columns:1fr;} }
+.footer-grid h5{font-family:var(--font-cond); text-transform:uppercase; letter-spacing:.05em; font-size:.8rem; color:var(--ink-soft); margin-bottom:.8rem;}
+.footer-grid a{display:block; text-decoration:none; padding-block:.3rem; opacity:.9;}
+.footer-grid a:hover{color:var(--green-deep);}
+:root:not([data-theme="light"]) .footer-grid a:hover{color:var(--green);}
+.footer-bottom{margin-top:2.5rem; padding-top:1.5rem; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.85rem; color:var(--ink-soft);}
+.footer-tag{font-family:var(--font-cond); font-size:.95rem; color:var(--ink-soft); margin-top:.6rem; max-width:22rem;}
+
+/* tilt utility */
+.tilt{transition:transform .2s ease;}
+</style>
+
+<div class="topbar" aria-hidden="true"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="top">
+  <div class="wrap header-inner">
+    <a href="#top" class="logo" aria-label="AIptieka home">
+      <svg class="logo-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="32" height="32" rx="7" fill="var(--ink)"/>
+        <path d="M7 22 L14 22 L14 18 L20 18 L20 22 L27 22" stroke="var(--amber)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M17 8 V16 M13 12 H21" stroke="var(--green)" stroke-width="2.6" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-word"><span class="accent-ai">AI</span>ptieka</span>
+    </a>
+    <nav class="nav" id="siteNav">
+      <a href="#how" data-i18n="nav.how">How It Works</a>
+      <a href="#paths" data-i18n="nav.paths">Get Your Meds</a>
+      <a href="#directory" data-i18n="nav.directory">Pharmacy Directory</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button data-lang="en" class="is-active">EN</button>
+        <button data-lang="lv">LV</button>
+        <button data-lang="lt">LT</button>
+        <button data-lang="et">ET</button>
+      </div>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v1M12 20v1M4.2 4.2l.7.7M19.1 19.1l.7.7M3 12h1M20 12h1M4.2 19.8l.7-.7M19.1 4.9l.7-.7" stroke-linecap="round"/><circle cx="12" cy="12" r="4.3"/></svg>
+      </button>
+      <a href="#waitlist" class="btn btn--primary btn--small" data-i18n="nav.cta">Join the Waitlist</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero" id="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow" data-i18n="hero.eyebrow">The Baltics' first drive-through pharmacy lane</p>
+      <h1 data-i18n="hero.headline">Skip the queue.<br>Keep the engine running.</h1>
+      <p class="hero-sub" data-i18n="hero.sub">Estonia, Latvia and Lithuania's first drive-through pharmacy lane. Scan your e-prescription, pull up, drive away — in under 90 seconds.</p>
+      <div class="hero-ctas">
+        <a href="#waitlist" class="btn btn--primary" data-i18n="hero.cta1">Join the Waitlist</a>
+        <a href="#how" class="btn btn--ghost" data-i18n="hero.cta2">See How It Works</a>
+      </div>
+      <div class="hero-quick">
+        <a href="#reserve" class="hero-quick__item">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="var(--amber)" stroke-width="2"/><path d="M7 13l3 3 7-7" stroke="var(--green)" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-i18n="hero.quick1">I have a prescription</span>
+        </a>
+        <a href="#directory" class="hero-quick__item">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="10" cy="10" r="7" stroke="var(--green)" stroke-width="2"/><path d="M19 19l-4.5-4.5" stroke="var(--amber)" stroke-width="2.2" stroke-linecap="round"/></svg>
+          <span data-i18n="hero.quick2">Compare pharmacies</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-scene" aria-hidden="true">
+      <div class="hero-scene__road"></div>
+      <div class="hero-scene__stripe"></div>
+      <div class="hero-scene__kiosk">
+        <div class="roof"></div>
+        <div class="body"><div class="window"></div></div>
+      </div>
+      <div class="scan-pulse"></div>
+      <svg class="hero-car" viewBox="0 0 96 44" fill="none">
+        <rect x="2" y="20" width="92" height="14" rx="5" fill="var(--amber)"/>
+        <path d="M18 20 L28 8 H66 L78 20 Z" fill="var(--amber)"/>
+        <path d="M31 18 L38 10 H62 L69 18 Z" fill="var(--ink)" opacity=".75"/>
+        <circle cx="22" cy="35" r="6" fill="var(--ink)"/>
+        <circle cx="74" cy="35" r="6" fill="var(--ink)"/>
+      </svg>
+      <div class="hero-packet"></div>
+      <div class="hero-scene__ground-label mono">AIPTIEKA LANE 01</div>
+    </div>
+  </div>
+  <div class="marker-strip wrap">
+    <div class="marker"><div class="marker__value tabnum" data-count="2.5" data-suffix="B" data-prefix="€">€2.5B</div><div class="marker__label" data-i18n="hero.stat1">Baltic Pharma Market</div></div>
+    <div class="marker"><div class="marker__value tabnum" data-count="6.0" data-suffix="M">6.0M</div><div class="marker__label" data-i18n="hero.stat2">Target Residents</div></div>
+    <div class="marker"><div class="marker__value tabnum" data-count="99" data-suffix="%+">99%+</div><div class="marker__label" data-i18n="hero.stat3">E-Prescription Rate</div></div>
+    <div class="marker"><div class="marker__value tabnum">90<span style="font-size:.6em">s</span></div><div class="marker__label" data-i18n="hero.stat4">Pickup Window</div></div>
+  </div>
+</section>
+
+<section class="route-section band-green" id="problem">
+  <div class="wrap">
+    <div class="route-section__head">
+      <p class="eyebrow" data-i18n="problem.eyebrow">Market friction</p>
+      <h2 class="section-title" data-i18n="problem.title">Today's pickup is broken</h2>
+      <p class="section-lede" data-i18n="problem.lede">99% of Baltic prescriptions are already digital. The last mile — actually getting the medicine — is still stuck in 2005.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-row">
+        <svg class="problem-icon" viewBox="0 0 46 46" fill="none"><circle cx="23" cy="23" r="21" stroke="var(--line)" stroke-width="2"/><path d="M23 10v26M14 15l18 16M32 15L14 31M13 23h20" stroke="var(--green)" stroke-width="2" stroke-linecap="round"/></svg>
+        <div><h3 data-i18n="problem.1.title">Baltic Winters</h3><p data-i18n="problem.1.desc">Snow, ice and sub-zero winds between you and your medicine cabinet.</p></div>
+      </div>
+      <div class="problem-row">
+        <svg class="problem-icon" viewBox="0 0 46 46" fill="none"><rect x="4" y="4" width="38" height="38" rx="6" stroke="var(--line)" stroke-width="2"/><path d="M15 15h16M15 31h16" stroke="var(--amber)" stroke-width="2" stroke-linecap="round"/><path d="M12 12l22 22M34 12L12 34" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/></svg>
+        <div><h3 data-i18n="problem.2.title">Nowhere to Park</h3><p data-i18n="problem.2.desc">City-centre pharmacies eat ten minutes just circling the block.</p></div>
+      </div>
+      <div class="problem-row">
+        <svg class="problem-icon" viewBox="0 0 46 46" fill="none"><circle cx="15" cy="18" r="5" stroke="var(--green)" stroke-width="2"/><circle cx="31" cy="18" r="5" stroke="var(--green)" stroke-width="2"/><path d="M6 36c1-7 6-11 9-11s5 2 9 2 6-2 9-2 8 4 9 11" stroke="var(--line)" stroke-width="2" stroke-linecap="round"/></svg>
+        <div><h3 data-i18n="problem.3.title">Crowded Waiting Rooms</h3><p data-i18n="problem.3.desc">Sick patients queue shoulder-to-shoulder during flu season.</p></div>
+      </div>
+      <div class="problem-row">
+        <svg class="problem-icon" viewBox="0 0 46 46" fill="none"><circle cx="23" cy="23" r="10" stroke="var(--amber)" stroke-width="2"/><path d="M23 6v6M23 35v5M6 23h6M35 23h5" stroke="var(--line)" stroke-width="2" stroke-linecap="round"/></svg>
+        <div><h3 data-i18n="problem.4.title">Hard to Reach</h3><p data-i18n="problem.4.desc">Unbuckling toddlers or a wheelchair for a two-minute pickup shouldn't be the norm.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="route-section band-amber" id="how">
+  <div class="wrap">
+    <div class="route-section__head">
+      <p class="eyebrow" data-i18n="how.eyebrow">The AIptieka way</p>
+      <h2 class="section-title" data-i18n="how.title">Tap. Verify. Drive away.</h2>
+      <p class="section-lede" data-i18n="how.lede">One lane, three steps, no parking. Your pharmacist does the paperwork while you stay in the driver's seat.</p>
+    </div>
+    <div class="steps">
+      <div class="step-list" id="stepList">
+        <button class="step is-active" data-step="1">
+          <span class="step__num">01</span>
+          <span><h3 data-i18n="how.1.title">Reserve Your Lane</h3><p data-i18n="how.1.desc">Enter your e-prescription code or scan the QR from your national e-health app.</p></span>
+        </button>
+        <button class="step" data-step="2">
+          <span class="step__num">02</span>
+          <span><h3 data-i18n="how.2.title">Pharmacist Verifies</h3><p data-i18n="how.2.desc">Our licensed pharmacist confirms it live against the national e-health register — no paperwork, no waiting room.</p></span>
+        </button>
+        <button class="step" data-step="3">
+          <span class="step__num">03</span>
+          <span><h3 data-i18n="how.3.title">Drive Away</h3><p data-i18n="how.3.desc">Tap to pay, collect your sealed medication through the window, and go — under 90 seconds, engine running.</p></span>
+        </button>
+      </div>
+      <div class="step-visual">
+        <svg id="stepSvg1" viewBox="0 0 240 200" fill="none"><rect x="20" y="30" width="200" height="140" rx="10" stroke="var(--line)" stroke-width="2"/><rect x="40" y="55" width="160" height="40" rx="4" fill="var(--paper)" stroke="var(--line)"/><text x="120" y="80" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="var(--ink-soft)">RX-88213-LV</text><rect x="40" y="110" width="90" height="12" rx="2" fill="var(--line)"/><rect x="40" y="130" width="130" height="12" rx="2" fill="var(--line)"/><rect x="150" y="55" width="50" height="40" rx="4" fill="var(--amber)"/><path d="M165 68l4 4 9-9" stroke="#1a1400" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg id="stepSvg2" viewBox="0 0 240 200" fill="none" style="display:none"><circle cx="120" cy="90" r="55" stroke="var(--green)" stroke-width="2"/><path d="M97 90l16 16 32-34" stroke="var(--green)" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="120" y="168" text-anchor="middle" font-family="Barlow Condensed" font-weight="700" font-size="14" letter-spacing="2" fill="var(--ink-soft)">E-HEALTH VERIFIED</text></svg>
+        <svg id="stepSvg3" viewBox="0 0 240 200" fill="none" style="display:none"><rect x="10" y="120" width="220" height="18" rx="4" fill="var(--ink)"/><rect x="40" y="70" width="120" height="52" rx="8" fill="var(--amber)"/><path d="M60 70l14-24h60l14 24" fill="var(--amber)"/><circle cx="66" cy="122" r="10" fill="var(--ink)"/><circle cx="152" cy="122" r="10" fill="var(--ink)"/><rect x="170" y="86" width="26" height="18" rx="3" fill="var(--green)"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="route-section" id="paths">
+  <div class="wrap">
+    <div class="route-section__head">
+      <p class="eyebrow" data-i18n="paths.eyebrow">Choose your path</p>
+      <h2 class="section-title" data-i18n="paths.title">One site. Two ways to get your medicine.</h2>
+    </div>
+    <div class="paths-grid">
+      <div class="path-card path-card--accent">
+        <svg class="path-card__icon" viewBox="0 0 42 42" fill="none"><rect x="3" y="9" width="36" height="26" rx="4" stroke="var(--amber)" stroke-width="2"/><path d="M3 17h36" stroke="var(--amber)" stroke-width="2"/><path d="M12 26l6 6 12-13" stroke="var(--green)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3 data-i18n="paths.a.title">Have an e-prescription?</h3>
+        <p data-i18n="paths.a.desc">Stay right here. Reserve a pickup window at your nearest AIptieka lane — no separate pharmacy login, no second website.</p>
+        <a href="#reserve" class="btn btn--primary" data-i18n="paths.a.cta">Reserve a Pickup Slot</a>
+      </div>
+      <div class="path-card">
+        <svg class="path-card__icon" viewBox="0 0 42 42" fill="none"><circle cx="18" cy="18" r="13" stroke="var(--green)" stroke-width="2"/><path d="M27 27l10 10" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/></svg>
+        <h3 data-i18n="paths.b.title">Just comparing, or need something now?</h3>
+        <p data-i18n="paths.b.desc">Browse real pharmacies across the Baltics and go straight to their site — no detour, no account.</p>
+        <a href="#directory" class="btn btn--ghost" data-i18n="paths.b.cta">Browse the Pharmacy Directory</a>
+      </div>
+    </div>
+
+    <div class="reserve" id="reserve">
+      <p class="eyebrow" data-i18n="reserve.eyebrow">Live demo — no account needed</p>
+      <h3 style="font-family:var(--font-cond); font-weight:700; font-size:1.4rem; text-transform:uppercase; margin-top:.5rem;" data-i18n="reserve.title">Reserve your lane</h3>
+      <form id="reserveForm">
+        <div class="reserve__grid" style="margin-top:1.3rem;">
+          <div class="field">
+            <label for="rCountry" data-i18n="reserve.country">Country</label>
+            <select id="rCountry">
+              <option value="lt" data-i18n="country.lt">Lithuania</option>
+              <option value="lv" data-i18n="country.lv">Latvia</option>
+              <option value="ee" data-i18n="country.ee">Estonia</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="rHub" data-i18n="reserve.hub">Pickup lane</label>
+            <select id="rHub"></select>
+          </div>
+          <div class="field">
+            <label for="rCode" data-i18n="reserve.code">E-prescription code (demo)</label>
+            <input id="rCode" type="text" placeholder="RX-00000-XX" class="mono">
+          </div>
+        </div>
+        <div class="reserve__foot">
+          <p class="reserve__hint" data-i18n="reserve.hint">This is an interactive preview — real pharmacists and live e-health verification switch on the day your first lane opens.</p>
+          <button type="submit" class="btn btn--primary" data-i18n="reserve.submit">Reserve My Window</button>
+        </div>
+        <div class="reserve__success" id="reserveSuccess"></div>
+      </form>
+      <div style="margin-top:1.2rem; padding-top:1.2rem; border-top:1px dashed var(--line);">
+        <p class="reserve__hint" style="margin-bottom:.8rem;">Want to hold your spot with a €5 deposit? (Test mode — no real charge yet.)</p>
+        <button id="payDepositBtn" class="btn btn--ghost" type="button">Pay Deposit — €5.00</button>
+        <p id="payError" class="reserve__hint" style="color:#a83232; display:none; margin-top:.6rem;"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="route-section band-green" id="directory">
+  <div class="wrap">
+    <div class="route-section__head">
+      <p class="eyebrow" data-i18n="directory.eyebrow">Where to go today</p>
+      <h2 class="section-title" data-i18n="directory.title">Baltic pharmacies, online today</h2>
+      <p class="section-lede" data-i18n="directory.lede">AIptieka lanes are opening hub by hub. Until yours does, here's where Baltic residents already order online — pick a country and go straight there.</p>
+    </div>
+    <div class="filters" id="filters">
+      <button class="filter-btn is-active" data-filter="all" data-i18n="filter.all">All</button>
+      <button class="filter-btn" data-filter="ee" data-i18n="filter.ee">Estonia</button>
+      <button class="filter-btn" data-filter="lv" data-i18n="filter.lv">Latvia</button>
+      <button class="filter-btn" data-filter="lt" data-i18n="filter.lt">Lithuania</button>
+    </div>
+    <div class="directory-list" id="directoryList">
+      <a class="directory-item" data-country="ee" href="https://www.benu.ee/" target="_blank" rel="noopener">
+        <span class="directory-item__mark">BE</span>
+        <span><h4>BENU Eesti <span class="cc mono">EE</span></h4><p data-i18n="dir.benuee">Baltic-wide pharmacy chain — Estonian online store.</p></span>
+      </a>
+      <a class="directory-item" data-country="ee" href="https://www.euroapteek.ee/" target="_blank" rel="noopener">
+        <span class="directory-item__mark">EA</span>
+        <span><h4>Euroapteek <span class="cc mono">EE</span></h4><p data-i18n="dir.euroapteek">Estonian online pharmacy and delivery.</p></span>
+      </a>
+      <a class="directory-item" data-country="lv" href="https://www.benu.lv/" target="_blank" rel="noopener">
+        <span class="directory-item__mark">BE</span>
+        <span><h4>BENU Latvija <span class="cc mono">LV</span></h4><p data-i18n="dir.benulv">Baltic-wide pharmacy chain — Latvian online store.</p></span>
+      </a>
+      <a class="directory-item" data-country="lv" href="https://www.apotheka.lv/" target="_blank" rel="noopener">
+        <span class="directory-item__mark">AP</span>
+        <span><h4>Apotheka <span class="cc mono">LV</span></h4><p data-i18n="dir.apotheka">Latvia's online pharmacy network.</p></span>
+      </a>
+      <a class="directory-item" data-country="lt" href="https://www.gintarine.lt/" target="_blank" rel="noopener">
+        <span class="directory-item__mark">GV</span>
+        <span><h4>Gintarinė vaistinė <span class="cc mono">LT</span></h4><p data-i18n="dir.gintarine">One of Lithuania's largest pharmacy chains.</p></span>
+      </a>
+      <a class="directory-item" data-country="lt" href="https://www.eurovaistine.lt/" target="_blank" rel="noopener">
+        <span class="directory-item__mark">EV</span>
+        <span><h4>Eurovaistinė <span class="cc mono">LT</span></h4><p data-i18n="dir.eurovaistine">Lithuanian online and in-store pharmacy chain.</p></span>
+      </a>
+      <a class="directory-item" data-country="lt" href="https://camelia.lt/" target="_blank" rel="noopener">
+        <span class="directory-item__mark">CA</span>
+        <span><h4>Camelia <span class="cc mono">LT</span></h4><p data-i18n="dir.camelia">Lithuanian pharmacy chain and online store.</p></span>
+      </a>
+    </div>
+    <p class="directory-note" data-i18n="directory.note">Independent pharmacy websites, not affiliated with AIptieka — listed as a convenience while our drive-through lanes are under construction.</p>
+  </div>
+</section>
+
+<!-- roadmap and investor sections removed for a simpler, consumer-first flow -->
+
+<section class="route-section band-amber" id="waitlist">
+  <div class="wrap">
+    <div class="route-section__head">
+      <p class="eyebrow" data-i18n="wl.eyebrow">Get in lane</p>
+      <h2 class="section-title" data-i18n="wl.title">Tell us where you are</h2>
+      <p class="section-lede" data-i18n="wl.lede">We'll let you know the moment an AIptieka lane opens near you.</p>
+    </div>
+    <div class="waitlist-grid">
+      <div>
+        <form class="wl" id="wlForm">
+          <div class="wl-row">
+            <div><label for="wlName" data-i18n="wl.name">Name</label><input id="wlName" type="text" required autocomplete="name"></div>
+            <div><label for="wlEmail" data-i18n="wl.email">Email</label><input id="wlEmail" type="email" required autocomplete="email"></div>
+          </div>
+          <div><label for="wlCity" data-i18n="wl.city">Nearest city</label>
+            <select id="wlCity">
+              <option>Vilnius</option><option>Riga</option><option>Tallinn</option><option>Kaunas</option><option>Klaipėda</option><option>Tartu</option><option>Daugavpils</option>
+            </select>
+          </div>
+          <label class="checkline"><input type="checkbox" id="wlRx"><span data-i18n="wl.checkbox">I currently hold a prescription I'd love to pick up this way.</span></label>
+          <button type="submit" class="btn btn--primary" data-i18n="wl.submit" style="align-self:flex-start;">Join the Waitlist</button>
+        </form>
+        <div class="wl-success" id="wlSuccess"></div>
+        <div class="share">
+          <a target="_blank" rel="noopener" id="shareX" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-6.9l-5.4-7-6.2 7H1.6l8.1-9.3L1 2h7l4.9 6.4L18.9 2Zm-1.2 18h1.9L7.4 3.9H5.3L17.7 20Z"/></svg><span data-i18n="wl.shareX">Share on X</span></a>
+          <a target="_blank" rel="noopener" id="shareLi" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5.001 2.5 2.5 0 0 1 0-5.001ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.1c.5-1 1.9-2 3.8-2 4.1 0 4.8 2.7 4.8 6.2V21h-4v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21h-4V9Z"/></svg><span data-i18n="wl.shareLi">Share on LinkedIn</span></a>
+          <a target="_blank" rel="noopener" id="shareWa" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.6 14.3c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.1.3-.3.5-.1.2-.3.4-.4.5-.1.1-.3.3-.1.6.2.3.9 1.5 1.9 2.4 1.3 1.2 2.4 1.5 2.7 1.7.3.2.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.8.9.3.1.5.2.5.3.1.2.1.6-.1 1.1Z"/></svg><span data-i18n="wl.shareWa">Share on WhatsApp</span></a>
+          <button type="button" id="shareCopy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span data-i18n="wl.copy">Copy Link</span></button>
+        </div>
+      </div>
+      <div class="route-map-card">
+        <p class="eyebrow" data-i18n="wl.visionEyebrow">Our vision</p>
+        <p style="font-family:var(--font-display); font-size:1.3rem; margin-top:.8rem; line-height:1.3;" data-i18n="wl.vision">"Healthcare accessibility isn't just about digital records — it's about making physical access effortless, safe and immediate when patients need it most."</p>
+        <p style="margin-top:1rem; color:var(--ink-soft); font-family:var(--font-cond); text-transform:uppercase; letter-spacing:.04em; font-size:.85rem;">— AIptieka Leadership Team</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="route-section" id="faq">
+  <div class="wrap">
+    <div class="route-section__head">
+      <p class="eyebrow" data-i18n="faq.eyebrow">Before you ask</p>
+      <h2 class="section-title" data-i18n="faq.title">Frequently asked</h2>
+    </div>
+    <div class="faq-list" id="faqList">
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq.1.q">Is this actually legal and regulated?</span><span class="plus"></span></button>
+        <div class="faq-a"><p data-i18n="faq.1.a">Yes. Every AIptieka lane is a licensed pharmacy staffed by a registered pharmacist who verifies your prescription against your country's national e-health register before dispensing — exactly like an in-store pharmacy, just through a window.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq.2.q">What if I don't have a car?</span><span class="plus"></span></button>
+        <div class="faq-a"><p data-i18n="faq.2.a">AIptieka lanes sit beside — not instead of — regular pharmacy counters at partner locations, and our directory above lists Baltic pharmacies you can walk into today.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq.3.q">Is my prescription data safe?</span><span class="plus"></span></button>
+        <div class="faq-a"><p data-i18n="faq.3.a">We never store your prescription outside the national e-health register. Our pharmacists query it live at the window — nothing is copied to an AIptieka database.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq.4.q">What does it cost?</span><span class="plus"></span></button>
+        <div class="faq-a"><p data-i18n="faq.4.a">The same as your prescription costs at any pharmacy — standard co-pay rules apply. There is no AIptieka membership fee.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <span class="logo-word"><span class="accent-ai">AI</span>ptieka</span>
+        <p class="footer-tag" data-i18n="footer.tag">The Baltics' first drive-through pharmacy lane. Prescription pickup, minus the parking.</p>
+      </div>
+      <div>
+        <h5 data-i18n="footer.explore">Explore</h5>
+        <a href="#how" data-i18n="nav.how">How It Works</a>
+        <a href="#directory" data-i18n="nav.directory">Pharmacy Directory</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      </div>
+      <div>
+        <h5 data-i18n="footer.contact">Contact</h5>
+        <a href="mailto:hello@aiptieka.eu">hello@aiptieka.eu</a>
+        <a href="mailto:invest@aiptieka.eu">invest@aiptieka.eu</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> AIptieka. <span data-i18n="footer.rights">All rights reserved.</span></span>
+      <span data-i18n="footer.made">Built for the road ahead.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- YEAR ---------- */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- THEME ---------- */
+var root = document.documentElement;
+var themeBtn = document.getElementById('themeToggle');
+try{
+  var savedTheme = localStorage.getItem('aiptieka-theme');
+  if(savedTheme) root.setAttribute('data-theme', savedTheme);
+}catch(e){}
+themeBtn.addEventListener('click', function(){
+  var current = root.getAttribute('data-theme');
+  var isDarkNow = current === 'dark' || (!current && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  var next = isDarkNow ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  try{ localStorage.setItem('aiptieka-theme', next); }catch(e){}
+});
+
+/* ---------- MOBILE NAV ---------- */
+var navToggle = document.getElementById('navToggle');
+var siteNav = document.getElementById('siteNav');
+navToggle.addEventListener('click', function(){
+  var open = siteNav.classList.toggle('is-open');
+  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+siteNav.querySelectorAll('a').forEach(function(a){
+  a.addEventListener('click', function(){ siteNav.classList.remove('is-open'); navToggle.setAttribute('aria-expanded','false'); });
+});
+
+/* ---------- HOW IT WORKS STEPPER ---------- */
+var steps = document.querySelectorAll('.step');
+var visuals = { 1: document.getElementById('stepSvg1'), 2: document.getElementById('stepSvg2'), 3: document.getElementById('stepSvg3') };
+steps.forEach(function(btn){
+  btn.addEventListener('click', function(){
+    steps.forEach(function(s){ s.classList.remove('is-active'); });
+    btn.classList.add('is-active');
+    var n = btn.getAttribute('data-step');
+    Object.keys(visuals).forEach(function(k){ visuals[k].style.display = (k === n) ? '' : 'none'; });
+  });
+});
+var stepAuto = setInterval(function(){
+  var activeIdx = 0;
+  steps.forEach(function(s,i){ if(s.classList.contains('is-active')) activeIdx = i; });
+  var nextIdx = (activeIdx + 1) % steps.length;
+  steps[nextIdx].click();
+}, 5000);
+document.getElementById('stepList').addEventListener('pointerdown', function(){ clearInterval(stepAuto); });
+
+/* ---------- RESERVE DEMO ---------- */
+var hubsByCountry = {
+  lt: [ {name:'Vilnius — Antakalnis Lane', status:'live'}, {name:'Kaunas Lane', status:'soon'}, {name:'Klaipėda Lane', status:'soon'} ],
+  lv: [ {name:'Riga — Purvciems Lane', status:'live'}, {name:'Daugavpils Lane', status:'soon'} ],
+  ee: [ {name:'Tallinn — Mustamäe Lane', status:'soon'}, {name:'Tartu Lane', status:'soon'} ]
+};
+var statusWord = { live:{en:'open now',lv:'atvērts tagad',lt:'atidaryta dabar',et:'avatud kohe'}, soon:{en:'opening soon',lv:'drīzumā',lt:'atsidarys greitai',et:'avaneb varsti'} };
+var rCountry = document.getElementById('rCountry');
+var rHub = document.getElementById('rHub');
+function fillHubs(){
+  var lang = document.documentElement.getAttribute('data-lang') || 'en';
+  rHub.innerHTML = '';
+  hubsByCountry[rCountry.value].forEach(function(h){
+    var opt = document.createElement('option');
+    opt.textContent = h.name + ' — ' + statusWord[h.status][lang];
+    rHub.appendChild(opt);
+  });
+}
+rCountry.addEventListener('change', fillHubs);
+fillHubs();
+document.getElementById('reserveForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  var msg = I18N[currentLang].reserve.success.replace('{hub}', rHub.value);
+  var box = document.getElementById('reserveSuccess');
+  box.textContent = msg;
+  box.classList.add('is-visible');
+});
+
+/* ---------- DIRECTORY FILTER ---------- */
+var filterBtns = document.querySelectorAll('.filter-btn');
+var dirItems = document.querySelectorAll('.directory-item');
+filterBtns.forEach(function(btn){
+  btn.addEventListener('click', function(){
+    filterBtns.forEach(function(b){ b.classList.remove('is-active'); });
+    btn.classList.add('is-active');
+    var f = btn.getAttribute('data-filter');
+    dirItems.forEach(function(item){
+      item.style.display = (f === 'all' || item.getAttribute('data-country') === f) ? '' : 'none';
+    });
+  });
+});
+
+/* ---------- FAQ ---------- */
+document.querySelectorAll('.faq-item').forEach(function(item){
+  item.querySelector('.faq-q').addEventListener('click', function(){
+    var wasOpen = item.classList.contains('is-open');
+    document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('is-open'); });
+    if(!wasOpen) item.classList.add('is-open');
+  });
+});
+
+/* ---------- WAITLIST FORM ---------- */
+document.getElementById('wlForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  var form = e.target;
+  var submitBtn = form.querySelector('button[type="submit"]');
+  var name = document.getElementById('wlName').value;
+  var email = document.getElementById('wlEmail').value;
+  var city = document.getElementById('wlCity').value;
+
+  submitBtn.disabled = true;
+
+  fetch('/api/send-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: name, email: email, city: city })
+  })
+  .catch(function(err){ console.error('Email notify failed:', err); })
+  .finally(function(){
+    form.style.display = 'none';
+    var box = document.getElementById('wlSuccess');
+    box.textContent = I18N[currentLang].wl.success;
+    box.classList.add('is-visible');
+  });
+});
+
+/* ---------- SHARE ---------- */
+var shareUrl = 'https://aiptieka.eu';
+var shareText = 'AIptieka — the Baltics\' first drive-through pharmacy lane.';
+document.getElementById('shareX').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(shareUrl);
+document.getElementById('shareLi').href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(shareUrl);
+document.getElementById('shareWa').href = 'https://wa.me/?text=' + encodeURIComponent(shareText + ' ' + shareUrl);
+document.getElementById('shareCopy').addEventListener('click', function(){
+  var label = this.querySelector('span');
+  var original = label.textContent;
+  try{
+    navigator.clipboard.writeText(shareUrl).then(function(){
+      label.textContent = (I18N[currentLang].wl.copied || 'Copied!');
+      setTimeout(function(){ label.textContent = original; }, 1800);
+    });
+  }catch(e){
+    label.textContent = shareUrl;
+  }
+});
+
+/* ---------- COUNT-UP (progressive enhancement; static text already correct) ---------- */
+if('IntersectionObserver' in window){
+  var counters = document.querySelectorAll('.marker__value[data-count]');
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(!entry.isIntersecting) return;
+      var el = entry.target;
+      obs.unobserve(el);
+      var target = parseFloat(el.getAttribute('data-count'));
+      var prefix = el.getAttribute('data-prefix') || '';
+      var suffix = el.getAttribute('data-suffix') || '';
+      var start = 0, duration = 900, startTime = null;
+      function step(ts){
+        if(!startTime) startTime = ts;
+        var progress = Math.min((ts - startTime) / duration, 1);
+        var val = (start + (target - start) * progress);
+        el.textContent = prefix + val.toFixed(target % 1 === 0 ? 0 : 1) + suffix;
+        if(progress < 1) requestAnimationFrame(step);
+        else el.textContent = prefix + target + suffix;
+      }
+      requestAnimationFrame(step);
+    });
+  }, {threshold:.6});
+  counters.forEach(function(el){ obs.observe(el); });
+}
+
+/* ---------- 3D TILT ---------- */
+document.querySelectorAll('.reserve, .directory-item, .path-card').forEach(function(card){
+  card.classList.add('tilt');
+  card.addEventListener('mousemove', function(e){
+    var r = card.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width - .5;
+    var y = (e.clientY - r.top) / r.height - .5;
+    card.style.transform = 'perspective(700px) rotateX(' + (y * -3) + 'deg) rotateY(' + (x * 3) + 'deg)';
+  });
+  card.addEventListener('mouseleave', function(){ card.style.transform = ''; });
+});
+
+/* ================= I18N ================= */
+var I18N = {
+  en: {
+    nav:{how:'How It Works',paths:'Get Your Meds',directory:'Pharmacy Directory',route:'Locations',investors:'For Investors',faq:'FAQ',cta:'Join the Waitlist'},
+    hero:{eyebrow:"The Baltics' first drive-through pharmacy lane",headline:'Skip the queue.<br>Keep the engine running.',sub:"Estonia, Latvia and Lithuania's first drive-through pharmacy lane. Scan your e-prescription, pull up, drive away — in under 90 seconds.",cta1:'Join the Waitlist',cta2:'See How It Works',quick1:'I have a prescription',quick2:'Compare pharmacies',stat1:'Baltic Pharma Market',stat2:'Target Residents',stat3:'E-Prescription Rate',stat4:'Pickup Window'},
+    problem:{eyebrow:'Market friction',title:"Today's pickup is broken",lede:"99% of Baltic prescriptions are already digital. The last mile — actually getting the medicine — is still stuck in 2005.",
+      '1':{title:'Baltic Winters',desc:'Snow, ice and sub-zero winds between you and your medicine cabinet.'},
+      '2':{title:'Nowhere to Park',desc:'City-centre pharmacies eat ten minutes just circling the block.'},
+      '3':{title:'Crowded Waiting Rooms',desc:'Sick patients queue shoulder-to-shoulder during flu season.'},
+      '4':{title:'Hard to Reach',desc:"Unbuckling toddlers or a wheelchair for a two-minute pickup shouldn't be the norm."}},
+    how:{eyebrow:'The AIptieka way',title:'Tap. Verify. Drive away.',lede:"One lane, three steps, no parking. Your pharmacist does the paperwork while you stay in the driver's seat.",
+      '1':{title:'Reserve Your Lane',desc:'Enter your e-prescription code or scan the QR from your national e-health app.'},
+      '2':{title:'Pharmacist Verifies',desc:'Our licensed pharmacist confirms it live against the national e-health register — no paperwork, no waiting room.'},
+      '3':{title:'Drive Away',desc:'Tap to pay, collect your sealed medication through the window, and go — under 90 seconds, engine running.'}},
+    paths:{eyebrow:'Choose your path',title:'One site. Two ways to get your medicine.',
+      a:{title:'Have an e-prescription?',desc:'Stay right here. Reserve a pickup window at your nearest AIptieka lane — no separate pharmacy login, no second website.',cta:'Reserve a Pickup Slot'},
+      b:{title:'Just comparing, or need something now?',desc:'Browse real pharmacies across the Baltics and go straight to their site — no detour, no account.',cta:'Browse the Pharmacy Directory'}},
+    reserve:{eyebrow:'Live demo — no account needed',title:'Reserve your lane',country:'Country',hub:'Pickup lane',code:'E-prescription code (demo)',hint:'This is an interactive preview — real pharmacists and live e-health verification switch on the day your first lane opens.',submit:'Reserve My Window',success:"You're in lane for {hub}. We'll text you the moment it opens."},
+    country:{lt:'Lithuania',lv:'Latvia',ee:'Estonia'},
+    directory:{eyebrow:'Where to go today',title:'Baltic pharmacies, online today',lede:"AIptieka lanes are opening hub by hub. Until yours does, here's where Baltic residents already order online — pick a country and go straight there.",note:'Independent pharmacy websites, not affiliated with AIptieka — listed as a convenience while our drive-through lanes are under construction.'},
+    filter:{all:'All',ee:'Estonia',lv:'Latvia',lt:'Lithuania'},
+    dir:{benuee:'Baltic-wide pharmacy chain — Estonian online store.',euroapteek:'Estonian online pharmacy and delivery.',benulv:'Baltic-wide pharmacy chain — Latvian online store.',apotheka:"Latvia's online pharmacy network.",gintarine:"One of Lithuania's largest pharmacy chains.",eurovaistine:'Lithuanian online and in-store pharmacy chain.',camelia:'Lithuanian pharmacy chain and online store.'},
+    route:{eyebrow:'Rollout',title:'The route ahead',lede:'From two pilot cities to a region-wide network — one hub at a time.',
+      p1:{chip:'Pilot — live',title:'Vilnius & Riga',desc:'First 3 lanes. Regulatory sign-off secured in Lithuania & Latvia.'},
+      p2:{chip:'Expansion',title:'Tallinn',desc:'Estonian market entry. Mobile app integrates with Baltic e-health APIs.'},
+      p3:{chip:'Scale',title:'25 hubs',desc:'Kaunas, Klaipėda, Tartu & Daugavpils join the network.'},
+      p4:{chip:'Region-wide',title:'45 hubs',desc:'Full Baltic coverage and wholesale synergies.'}},
+    inv:{eyebrow:'For investors',title:'The numbers behind the lane',lede:'Zero direct drive-through chains exist in the Baltics today. Unit economics improve fast as the network scales.',metric:'Metric (per hub)',y1:'Year 1 · Pilot',y2:'Year 2 · 15 hubs',y3:'Year 3 · 45 hubs',capex:'Initial CapEx / station',tx:'Daily transactions',basket:'Average basket size',payback:'Payback period',seeking:'Seeking',round:'Seed / Series A',desc:'to launch and scale the first Baltic drive-through pharmacy network.'},
+    wl:{eyebrow:'Get in lane',title:'Tell us where you are',lede:"We'll let you know the moment an AIptieka lane opens near you.",name:'Name',email:'Email',city:'Nearest city',checkbox:"I currently hold a prescription I'd love to pick up this way.",submit:'Join the Waitlist',success:"You're on the list! We'll email you the moment your city goes live.",shareX:'Share on X',shareLi:'Share on LinkedIn',shareWa:'Share on WhatsApp',copy:'Copy Link',copied:'Copied!',visionEyebrow:'Our vision',vision:'"Healthcare accessibility isn’t just about digital records — it’s about making physical access effortless, safe and immediate when patients need it most."'},
+    faq:{eyebrow:'Before you ask',title:'Frequently asked',
+      '1':{q:'Is this actually legal and regulated?',a:"Yes. Every AIptieka lane is a licensed pharmacy staffed by a registered pharmacist who verifies your prescription against your country's national e-health register before dispensing — exactly like an in-store pharmacy, just through a window."},
+      '2':{q:"What if I don't have a car?",a:'AIptieka lanes sit beside — not instead of — regular pharmacy counters at partner locations, and our directory above lists Baltic pharmacies you can walk into today.'},
+      '3':{q:'Is my prescription data safe?',a:'We never store your prescription outside the national e-health register. Our pharmacists query it live at the window — nothing is copied to an AIptieka database.'},
+      '4':{q:'What does it cost?',a:'The same as your prescription costs at any pharmacy — standard co-pay rules apply. There is no AIptieka membership fee.'}},
+    footer:{tag:"The Baltics' first drive-through pharmacy lane. Prescription pickup, minus the parking.",explore:'Explore',contact:'Contact',rights:'All rights reserved.',made:'Built for the road ahead.'}
+  },
+  lv: {
+    nav:{how:'Kā tas strādā',paths:'Saņem zāles',directory:'Aptieku saraksts',route:'Atrašanās vietas',investors:'Investoriem',faq:'BUJ',cta:'Pievienoties sarakstam'},
+    hero:{eyebrow:'Baltijas pirmā aptiekas autojosla',headline:'Izlaid rindu.<br>Neizslēdz dzinēju.',sub:'Igaunijas, Latvijas un Lietuvas pirmā aptiekas autojosla. Noskenē savu e-recepti, piebrauc un aizbrauc — mazāk nekā 90 sekundēs.',cta1:'Pievienoties sarakstam',cta2:'Skatīt, kā tas strādā',quick1:'Man ir e-recepte',quick2:'Salīdzināt aptiekas',stat1:'Baltijas farmācijas tirgus',stat2:'Iedzīvotāju skaits',stat3:'E-recepšu īpatsvars',stat4:'Izsniegšanas laiks'},
+    problem:{eyebrow:'Tirgus problēma',title:'Recepšu saņemšana šodien prasa par daudz',lede:'Vairāk nekā 99% Baltijas recepšu jau ir digitālas. Pēdējais posms — zāļu faktiskā saņemšana — vēl arvien iestrēdzis pagātnē.',
+      '1':{title:'Baltijas ziema',desc:'Sniegs, ledus un ass vējš starp tevi un tavām zālēm.'},
+      '2':{title:'Nekur novietot auto',desc:'Pilsētas centra aptiekas prasa desmit minūtes riņķošanas ap kvartālu.'},
+      '3':{title:'Pārpildītas gaidītavas',desc:'Slimi pacienti stāv rindā plecu pie pleca gripas sezonā.'},
+      '4':{title:'Grūti aizsniedzams',desc:'Atsprādzēt mazuli vai ratiņkrēslu divu minūšu saņemšanai nav normāli.'}},
+    how:{eyebrow:'AIptieka pieeja',title:'Piesakies. Pārbauda. Aizbrauc.',lede:'Viena josla, trīs soļi, bez parkošanās. Farmaceits kārto formalitātes, kamēr tu paliec pie stūres.',
+      '1':{title:'Rezervē savu joslu',desc:'Ievadi e-recepšu kodu vai noskenē QR kodu no savas e-veselības lietotnes.'},
+      '2':{title:'Farmaceits pārbauda',desc:'Mūsu licencēts farmaceits to apstiprina tiešsaistē nacionālajā e-veselības reģistrā — bez papīriem, bez gaidīšanas.'},
+      '3':{title:'Aizbrauc',desc:'Samaksā bezkontakta veidā, saņem aizzīmogotās zāles pa logu un dodies tālāk — mazāk nekā 90 sekundēs, dzinējam strādājot.'}},
+    paths:{eyebrow:'Izvēlies savu ceļu',title:'Viena vietne. Divi ceļi pie savām zālēm.',
+      a:{title:'Ir e-recepte?',desc:'Paliec šeit. Rezervē saņemšanas laiku savā tuvākajā AIptieka joslā — bez atsevišķas pieteikšanās citā aptiekas vietnē.',cta:'Rezervēt saņemšanas laiku'},
+      b:{title:'Tikai salīdzini vai vajag tagad?',desc:'Pārlūko reālas aptiekas visā Baltijā un dodies tieši uz to vietni — bez apkārtceļa, bez konta.',cta:'Pārlūkot aptieku sarakstu'}},
+    reserve:{eyebrow:'Dzīva demo versija — konts nav vajadzīgs',title:'Rezervē savu joslu',country:'Valsts',hub:'Saņemšanas josla',code:'E-recepšu kods (demo)',hint:'Šis ir interaktīvs priekšskatījums — īsti farmaceiti un tiešsaistes e-veselības pārbaude ieslēgsies dienā, kad atveras pirmā josla.',submit:'Rezervēt manu laiku',success:'Tu esi rindā uz {hub}. Uzrakstīsim, tiklīdz tā atvērsies.'},
+    country:{lt:'Lietuva',lv:'Latvija',ee:'Igaunija'},
+    directory:{eyebrow:'Kur doties šodien',title:'Baltijas aptiekas jau šodien tiešsaistē',lede:'AIptieka joslas atveras josla pa joslai. Kamēr tava vēl neatveras, šeit ir vietas, kur Baltijas iedzīvotāji jau pasūta tiešsaistē — izvēlies valsti un dodies tieši uz turieni.',note:'Neatkarīgas aptieku vietnes, kas nav saistītas ar AIptieka — norādītas ērtībai, kamēr mūsu autojoslas tiek būvētas.'},
+    filter:{all:'Visi',ee:'Igaunija',lv:'Latvija',lt:'Lietuva'},
+    dir:{benuee:'Baltijas mēroga aptieku ķēde — Igaunijas tiešsaistes veikals.',euroapteek:'Igaunijas tiešsaistes aptieka un piegāde.',benulv:'Baltijas mēroga aptieku ķēde — Latvijas tiešsaistes veikals.',apotheka:'Latvijas tiešsaistes aptieku tīkls.',gintarine:'Viena no lielākajām Lietuvas aptieku ķēdēm.',eurovaistine:'Lietuvas tiešsaistes un klātienes aptieku ķēde.',camelia:'Lietuvas aptieku ķēde un tiešsaistes veikals.'},
+    route:{eyebrow:'Izvēršana',title:'Ceļš uz priekšu',lede:'No divām pilotpilsētām līdz reģiona mēroga tīklam — pa vienai joslai reizē.',
+      p1:{chip:'Pilots — aktīvs',title:'Viļņa un Rīga',desc:'Pirmās 3 joslas. Nodrošināta regulatīvā atļauja Lietuvā un Latvijā.'},
+      p2:{chip:'Paplašināšanās',title:'Tallina',desc:'Ienākšana Igaunijas tirgū. Mobilā lietotne integrējas ar Baltijas e-veselības API.'},
+      p3:{chip:'Mērogošana',title:'25 joslas',desc:'Tīklam pievienojas Kauņa, Klaipēda, Tartu un Daugavpils.'},
+      p4:{chip:'Visa reģiona mērogā',title:'45 joslas',desc:'Pilns Baltijas pārklājums un vairumtirdzniecības sinerģijas.'}},
+    inv:{eyebrow:'Investoriem',title:'Skaitļi aiz joslas',lede:'Šodien Baltijā nav nevienas tiešas aptiekas autojoslu ķēdes. Vienības ekonomika strauji uzlabojas, tīklam augot.',metric:'Rādītājs (uz joslu)',y1:'1. gads · Pilots',y2:'2. gads · 15 joslas',y3:'3. gads · 45 joslas',capex:'Sākotnējie kapitālieguldījumi',tx:'Darījumi dienā',basket:'Vidējais groza apjoms',payback:'Atmaksāšanās periods',seeking:'Piesaistām',round:'Seed / A sērija',desc:'lai palaistu un mērogotu pirmo Baltijas aptiekas autojoslu tīklu.'},
+    wl:{eyebrow:'Ieņem savu joslu',title:'Pastāsti, kur tu esi',lede:'Paziņosim, tiklīdz AIptieka josla atveras tuvāk tev.',name:'Vārds',email:'E-pasts',city:'Tuvākā pilsēta',checkbox:'Man šobrīd ir recepte, ko labprāt saņemtu šādā veidā.',submit:'Pievienoties sarakstam',success:'Tu esi sarakstā! Uzrakstīsim, tiklīdz tava pilsēta būs aktīva.',shareX:'Dalīties X',shareLi:'Dalīties LinkedIn',shareWa:'Dalīties WhatsApp',copy:'Kopēt saiti',copied:'Nokopēts!',visionEyebrow:'Mūsu vīzija',vision:'"Veselības aprūpes pieejamība nav tikai par digitāliem ierakstiem — tā ir par to, lai fiziska piekļuve būtu vienkārša, droša un tūlītēja tieši tad, kad pacientiem tā visvairāk nepieciešama."'},
+    faq:{eyebrow:'Pirms jautā',title:'Biežāk uzdotie jautājumi',
+      '1':{q:'Vai tas tiešām ir likumīgi un regulēts?',a:'Jā. Katra AIptieka josla ir licencēta aptieka ar reģistrētu farmaceitu, kas pirms izsniegšanas pārbauda tavu recepti valsts e-veselības reģistrā — tāpat kā aptiekā, tikai caur logu.'},
+      '2':{q:'Ko darīt, ja man nav auto?',a:'AIptieka joslas atrodas blakus, nevis vietā, parastiem aptiekas lodziņiem partneru vietās, un mūsu sarakstā augstāk ir Baltijas aptiekas, kurās vari ieiet jau šodien.'},
+      '3':{q:'Vai mani recepšu dati ir droši?',a:'Mēs nekad neglabājam tavu recepti ārpus valsts e-veselības reģistra. Mūsu farmaceiti to pārbauda tiešsaistē pie loga — nekas netiek kopēts AIptieka datubāzē.'},
+      '4':{q:'Cik tas maksā?',a:'Tikpat, cik tava recepte maksā jebkurā aptiekā — attiecas standarta līdzmaksājuma noteikumi. AIptieka dalības maksas nav.'}},
+    footer:{tag:'Baltijas pirmā aptiekas autojosla. Recepšu saņemšana bez parkošanās.',explore:'Pārlūkot',contact:'Kontakti',rights:'Visas tiesības aizsargātas.',made:'Veidots ceļam uz priekšu.'}
+  },
+  lt: {
+    nav:{how:'Kaip tai veikia',paths:'Atsiimk vaistus',directory:'Vaistinių sąrašas',route:'Vietos',investors:'Investuotojams',faq:'DUK',cta:'Prisijungti prie sąrašo'},
+    hero:{eyebrow:'Pirmoji vaistinės autojuosta Baltijos šalyse',headline:'Praleisk eilę.<br>Nestabdyk variklio.',sub:'Pirmoji vaistinės autojuosta Estijoje, Latvijoje ir Lietuvoje. Nuskenuok savo e. receptą, privažiuok ir išvažiuok — greičiau nei per 90 sekundžių.',cta1:'Prisijungti prie sąrašo',cta2:'Kaip tai veikia',quick1:'Turiu e. receptą',quick2:'Palyginti vaistines',stat1:'Baltijos vaistų rinka',stat2:'Gyventojų skaičius',stat3:'E. receptų dalis',stat4:'Atsiėmimo laikas'},
+    problem:{eyebrow:'Rinkos problema',title:'Šiandien receptą atsiimti — per sunku',lede:'Daugiau nei 99% Baltijos šalių receptų jau yra skaitmeniniai. Paskutinė mylia — pats vaistų atsiėmimas — vis dar įstrigusi praeityje.',
+      '1':{title:'Baltijos žiema',desc:'Sniegas, ledas ir šaltas vėjas tarp tavęs ir tavo vaistų.'},
+      '2':{title:'Nėra kur pastatyti auto',desc:'Miesto centro vaistinėms reikia dešimties minučių sukti ratus aplink kvartalą.'},
+      '3':{title:'Perpildytos laukiamosios',desc:'Sergantys pacientai stovi eilėje petys į petį gripo sezono metu.'},
+      '4':{title:'Sunku pasiekti',desc:'Atsegti vaikutį ar neįgaliojo vežimėlį dviejų minučių atsiėmimui — tai neturėtų būti norma.'}},
+    how:{eyebrow:'AIptieka būdas',title:'Registruokis. Patikrink. Išvažiuok.',lede:'Viena juosta, trys žingsniai, be parkavimo. Vaistininkas tvarko popierius, kol tu lieki prie vairo.',
+      '1':{title:'Rezervuok savo juostą',desc:'Įvesk e. recepto kodą arba nuskenuok QR kodą iš savo e. sveikatos programėlės.'},
+      '2':{title:'Vaistininkas patikrina',desc:'Mūsų licencijuotas vaistininkas tiesiogiai patvirtina jį nacionaliniame e. sveikatos registre — jokių popierių, jokios eilės.'},
+      '3':{title:'Išvažiuok',desc:'Sumokėk bekontakčiu būdu, atsiimk užplombuotus vaistus pro langelį ir važiuok toliau — mažiau nei per 90 sekundžių, variklis veikia.'}},
+    paths:{eyebrow:'Pasirink savo kelią',title:'Viena svetainė. Du keliai pas savo vaistus.',
+      a:{title:'Turi e. receptą?',desc:'Lik čia. Rezervuok atsiėmimo laiką artimiausioje AIptieka juostoje — be atskiro prisijungimo prie kitos vaistinės svetainės.',cta:'Rezervuoti atsiėmimo laiką'},
+      b:{title:'Tik lygini kainas ar reikia dabar?',desc:'Naršyk tikras vaistines visoje Baltijoje ir eik tiesiai į jų svetainę — be aplinkkelių, be paskyros.',cta:'Naršyti vaistinių sąrašą'}},
+    reserve:{eyebrow:'Gyvas demo — paskyra nereikalinga',title:'Rezervuok savo juostą',country:'Šalis',hub:'Atsiėmimo juosta',code:'E. recepto kodas (demo)',hint:'Tai interaktyvi peržiūra — tikri vaistininkai ir gyva e. sveikatos patikra įsijungs dieną, kai atsidarys pirmoji juosta.',submit:'Rezervuoti mano laiką',success:'Tu esi eilėje į {hub}. Parašysime, kai tik ji atsidarys.'},
+    country:{lt:'Lietuva',lv:'Latvija',ee:'Estija'},
+    directory:{eyebrow:'Kur eiti šiandien',title:'Baltijos vaistinės jau šiandien internete',lede:'AIptieka juostos atsidaro po vieną. Kol tavoji dar neatsidarė, štai kur Baltijos gyventojai jau užsisako internetu — pasirink šalį ir eik tiesiai ten.',note:'Nepriklausomos vaistinių svetainės, nesusijusios su AIptieka — pateiktos jūsų patogumui, kol statome savo autojuostas.'},
+    filter:{all:'Visos',ee:'Estija',lv:'Latvija',lt:'Lietuva'},
+    dir:{benuee:'Baltijos masto vaistinių tinklas — Estijos internetinė parduotuvė.',euroapteek:'Estijos internetinė vaistinė ir pristatymas.',benulv:'Baltijos masto vaistinių tinklas — Latvijos internetinė parduotuvė.',apotheka:'Latvijos internetinių vaistinių tinklas.',gintarine:'Viena didžiausių Lietuvos vaistinių tinklų.',eurovaistine:'Lietuvos internetinė ir fizinė vaistinių tinklas.',camelia:'Lietuvos vaistinių tinklas ir internetinė parduotuvė.'},
+    route:{eyebrow:'Plėtra',title:'Kelias į priekį',lede:'Nuo dviejų pilotinių miestų iki viso regiono tinklo — po vieną juostą.',
+      p1:{chip:'Pilotas — veikia',title:'Vilnius ir Ryga',desc:'Pirmosios 3 juostos. Užtikrintas reguliavimo patvirtinimas Lietuvoje ir Latvijoje.'},
+      p2:{chip:'Plėtra',title:'Talinas',desc:'Įėjimas į Estijos rinką. Mobilioji programėlė integruojasi su Baltijos e. sveikatos API.'},
+      p3:{chip:'Augimas',title:'25 juostos',desc:'Prie tinklo prisijungia Kaunas, Klaipėda, Tartu ir Daugpilis.'},
+      p4:{chip:'Visas regionas',title:'45 juostos',desc:'Visa Baltijos aprėptis ir didmeninės sinergijos.'}},
+    inv:{eyebrow:'Investuotojams',title:'Skaičiai už juostos',lede:'Šiandien Baltijos šalyse nėra nė vieno tiesioginio vaistinių autojuostų tinklo. Vieneto ekonomika sparčiai gerėja tinklui augant.',metric:'Rodiklis (vienai juostai)',y1:'1 metai · Pilotas',y2:'2 metai · 15 juostų',y3:'3 metai · 45 juostos',capex:'Pradinės kapitalo investicijos',tx:'Sandorių per dieną',basket:'Vidutinis krepšelio dydis',payback:'Atsipirkimo laikotarpis',seeking:'Ieškome',round:'Sėklinis / A serijos',desc:'pirmajam Baltijos vaistinių autojuostų tinklui paleisti ir plėsti.'},
+    wl:{eyebrow:'Užimk savo juostą',title:'Pasakyk, kur esi',lede:'Pranešime, kai tik AIptieka juosta atsidarys arčiau tavęs.',name:'Vardas',email:'El. paštas',city:'Artimiausias miestas',checkbox:'Šiuo metu turiu receptą, kurį norėčiau atsiimti tokiu būdu.',submit:'Prisijungti prie sąrašo',success:'Tu sąraše! Parašysime el. paštu, kai tik tavo miestas pradės veikti.',shareX:'Dalintis X',shareLi:'Dalintis LinkedIn',shareWa:'Dalintis WhatsApp',copy:'Kopijuoti nuorodą',copied:'Nukopijuota!',visionEyebrow:'Mūsų vizija',vision:'„Sveikatos priežiūros prieinamumas — tai ne vien skaitmeniniai įrašai, o fizinės prieigos padarymas paprastu, saugiu ir greitu tada, kai pacientams to labiausiai reikia."'},
+    faq:{eyebrow:'Prieš klausiant',title:'Dažniausiai užduodami klausimai',
+      '1':{q:'Ar tai tikrai legalu ir reguliuojama?',a:'Taip. Kiekviena AIptieka juosta yra licencijuota vaistinė su registruotu vaistininku, kuris prieš išduodamas patikrina tavo receptą nacionaliniame e. sveikatos registre — lygiai taip pat kaip vaistinėje, tik pro langelį.'},
+      '2':{q:'O jei neturiu automobilio?',a:'AIptieka juostos veikia šalia, o ne vietoj įprastų vaistinės langelių partnerių vietose, o mūsų sąraše aukščiau rasi Baltijos vaistines, į kurias gali užeiti jau šiandien.'},
+      '3':{q:'Ar mano recepto duomenys saugūs?',a:'Mes niekada nesaugome tavo recepto už nacionalinio e. sveikatos registro ribų. Mūsų vaistininkai jį patikrina tiesiogiai prie langelio — niekas nekopijuojama į AIptieka duomenų bazę.'},
+      '4':{q:'Kiek tai kainuoja?',a:'Tiek pat, kiek tavo receptas kainuoja bet kurioje vaistinėje — galioja standartinės priemokų taisyklės. AIptieka narystės mokesčio nėra.'}},
+    footer:{tag:'Pirmoji vaistinės autojuosta Baltijos šalyse. Recepto atsiėmimas be parkavimo.',explore:'Naršyti',contact:'Kontaktai',rights:'Visos teisės saugomos.',made:'Sukurta keliui į priekį.'}
+  },
+  et: {
+    nav:{how:'Kuidas see töötab',paths:'Hangi ravimid',directory:'Apteekide nimekiri',route:'Asukohad',investors:'Investoritele',faq:'KKK',cta:'Liitu ootenimekirjaga'},
+    hero:{eyebrow:'Baltimaade esimene läbisõiduapteegi rada',headline:'Jäta järjekord vahele.<br>Ära lülita mootorit välja.',sub:'Eesti, Läti ja Leedu esimene läbisõiduapteegi rada. Skanni oma e-retsept, sõida ette ja sõida minema — alla 90 sekundi.',cta1:'Liitu ootenimekirjaga',cta2:'Vaata, kuidas see töötab',quick1:'Mul on e-retsept',quick2:'Võrdle apteeke',stat1:'Balti ravimiturg',stat2:'Sihtrühma suurus',stat3:'E-retseptide osakaal',stat4:'Väljastusaeg'},
+    problem:{eyebrow:'Turu takistus',title:'Tänane retsepti kättesaamine on tülikas',lede:'Üle 99% Baltimaade retseptidest on juba digitaalsed. Viimane etapp — ravimi tegelik kättesaamine — on endiselt kinni minevikus.',
+      '1':{title:'Balti talv',desc:'Lumi, jää ja külm tuul sinu ja su ravimite vahel.'},
+      '2':{title:'Parkimiskoht puudub',desc:'Kesklinna apteegid võtavad kümme minutit lihtsalt ringi tiirutamist.'},
+      '3':{title:'Rahvarohked ooteruumid',desc:'Haiged patsiendid seisavad õlg õla kõrval gripihooajal.'},
+      '4':{title:'Raskesti ligipääsetav',desc:'Väikelapse või ratastooli lahtipäästmine kaheminutiliseks väljastuseks ei tohiks olla norm.'}},
+    how:{eyebrow:'AIptieka viis',title:'Broneeri. Kinnita. Sõida minema.',lede:'Üks rada, kolm sammu, parkimist pole vaja. Su proviisor tegeleb paberitega, sina jääd rooli taha.',
+      '1':{title:'Broneeri oma rada',desc:'Sisesta e-retsepti kood või skanni QR-kood oma e-tervise rakendusest.'},
+      '2':{title:'Proviisor kontrollib',desc:'Meie litsentseeritud proviisor kinnitab selle otse riiklikust e-tervise registrist — ilma paberite ja ootamiseta.'},
+      '3':{title:'Sõida minema',desc:'Maksa puutevabalt, võta suletud ravimid aknast vastu ja sõida edasi — alla 90 sekundi, mootor töötab.'}},
+    paths:{eyebrow:'Vali oma tee',title:'Üks veebileht. Kaks teed su ravimiteni.',
+      a:{title:'On e-retsept?',desc:'Jää siia. Broneeri väljastusaeg lähimas AIptieka rajas — ilma eraldi sisselogimiseta mõnda teise apteegi veebilehte.',cta:'Broneeri väljastusaeg'},
+      b:{title:'Lihtsalt võrdled või vajad kohe?',desc:'Sirvi päris apteeke üle Baltikumi ja mine otse nende lehele — ilma ümbersõiduta, ilma kontota.',cta:'Sirvi apteekide nimekirja'}},
+    reserve:{eyebrow:'Elav demo — kontot pole vaja',title:'Broneeri oma rada',country:'Riik',hub:'Väljastuspunkt',code:'E-retsepti kood (demo)',hint:'See on interaktiivne eelvaade — päris proviisorid ja reaalajas e-tervise kontroll lülituvad sisse päeval, mil su esimene rada avaneb.',submit:'Broneeri mu aeg',success:'Oled reas rajale {hub}. Anname sulle teada, kui see avaneb.'},
+    country:{lt:'Leedu',lv:'Läti',ee:'Eesti'},
+    directory:{eyebrow:'Kuhu minna täna',title:'Balti apteegid juba täna veebis',lede:'AIptieka rajad avanevad üksteise järel. Kuni sinu oma veel ei avane, siin on kohad, kust Baltimaade elanikud juba tellivad — vali riik ja mine otse sinna.',note:'Sõltumatud apteegiveebid, mis ei ole seotud AIptiekaga — toodud mugavuse huvides, kuni meie läbisõiduread valmivad.'},
+    filter:{all:'Kõik',ee:'Eesti',lv:'Läti',lt:'Leedu'},
+    dir:{benuee:'Üle-Balti apteegikett — Eesti veebipood.',euroapteek:'Eesti veebiapteek ja kohaletoimetamine.',benulv:'Üle-Balti apteegikett — Läti veebipood.',apotheka:'Läti veebiapteekide võrgustik.',gintarine:'Üks Leedu suurimaid apteegikette.',eurovaistine:'Leedu vebi- ja kohapealne apteegikett.',camelia:'Leedu apteegikett ja veebipood.'},
+    route:{eyebrow:'Laienemine',title:'Tee ees',lede:'Kahest pilootlinnast piirkonnaülese võrgustikuni — üks rada korraga.',
+      p1:{chip:'Pilootprojekt — käib',title:'Vilnius ja Riia',desc:'Esimesed 3 rada. Regulatiivne heakskiit kindlustatud Leedus ja Lätis.'},
+      p2:{chip:'Laienemine',title:'Tallinn',desc:'Sisenemine Eesti turule. Mobiilirakendus liitub Balti e-tervise API-dega.'},
+      p3:{chip:'Kasv',title:'25 punkti',desc:'Võrgustikuga liituvad Kaunas, Klaipėda, Tartu ja Daugavpils.'},
+      p4:{chip:'Kogu piirkond',title:'45 punkti',desc:'Täielik Balti kate ja hulgimüügi sünergiad.'}},
+    inv:{eyebrow:'Investoritele',title:'Numbrid raja taga',lede:'Baltimaades ei ole täna ühtegi otsest läbisõiduapteekide kett. Ühiku majandus paraneb kiiresti võrgustiku kasvades.',metric:'Näitaja (punkti kohta)',y1:'1. aasta · Pilootprojekt',y2:'2. aasta · 15 punkti',y3:'3. aasta · 45 punkti',capex:'Alginvesteering / punkt',tx:'Tehinguid päevas',basket:'Keskmine ostukorv',payback:'Tasuvusaeg',seeking:'Otsime',round:'Seemne- / A-seeria',desc:'esimese Balti läbisõiduapteegi võrgustiku käivitamiseks ja laiendamiseks.'},
+    wl:{eyebrow:'Astu ritta',title:'Ütle meile, kus sa oled',lede:'Anname sulle teada niipea, kui AIptieka rada avaneb sinu lähedal.',name:'Nimi',email:'E-post',city:'Lähim linn',checkbox:'Mul on praegu retsept, mille sooviksin sel moel kätte saada.',submit:'Liitu ootenimekirjaga',success:'Oled nimekirjas! Anname e-postiga teada niipea, kui su linn avaneb.',shareX:'Jaga X-is',shareLi:'Jaga LinkedInis',shareWa:'Jaga WhatsAppis',copy:'Kopeeri link',copied:'Kopeeritud!',visionEyebrow:'Meie visioon',vision:'"Tervishoiu kättesaadavus ei tähenda ainult digitaalseid kirjeid — see tähendab füüsilise juurdepääsu muutmist vaevatuks, ohutuks ja kohe kättesaadavaks just siis, kui patsiendid seda kõige rohkem vajavad."'},
+    faq:{eyebrow:'Enne küsimist',title:'Korduma kippuvad küsimused',
+      '1':{q:'Kas see on ikka seaduslik ja reguleeritud?',a:'Jah. Iga AIptieka rada on litsentseeritud apteek, kus töötab registreeritud proviisor, kes kontrollib su retsepti riiklikust e-tervise registrist enne väljastamist — täpselt nagu tavaapteegis, lihtsalt akna kaudu.'},
+      '2':{q:'Aga kui mul autot ei ole?',a:'AIptieka rajad asuvad partnerite juures tavaliste apteegilettide kõrval, mitte nende asemel, ning meie ülalolevas nimekirjas on Baltimaade apteegid, kuhu saad juba täna sisse astuda.'},
+      '3':{q:'Kas mu retseptiandmed on turvalised?',a:'Me ei salvesta su retsepti kunagi väljaspool riiklikku e-tervise registrit. Meie proviisorid kontrollivad seda otse akna juures — midagi ei kopeerita AIptieka andmebaasi.'},
+      '4':{q:'Kui palju see maksab?',a:'Sama palju kui su retsept maksab igas apteegis — kehtivad tavapärased omaosaluse reeglid. AIptiekal liikmemaksu ei ole.'}},
+    footer:{tag:'Baltimaade esimene läbisõiduapteegi rada. Retsepti kättesaamine ilma parkimiseta.',explore:'Sirvi',contact:'Kontakt',rights:'Kõik õigused kaitstud.',made:'Ehitatud teele ees.'}
+  }
+};
+
+var currentLang = 'en';
+try{ var saved = localStorage.getItem('aiptieka-lang'); if(saved && I18N[saved]) currentLang = saved; }catch(e){}
+
+function getPath(obj, path){
+  return path.split('.').reduce(function(acc,k){ return (acc && acc[k] !== undefined) ? acc[k] : undefined; }, obj);
+}
+
+function applyLang(lang){
+  if(!I18N[lang]) return;
+  currentLang = lang;
+  document.documentElement.setAttribute('lang', lang);
+  document.documentElement.setAttribute('data-lang', lang);
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key = el.getAttribute('data-i18n');
+    var val = getPath(I18N[lang], key);
+    if(val !== undefined) el.innerHTML = val;
+  });
+  document.querySelectorAll('.lang-switch button').forEach(function(b){
+    b.classList.toggle('is-active', b.getAttribute('data-lang') === lang);
+  });
+  fillHubs();
+  try{ localStorage.setItem('aiptieka-lang', lang); }catch(e){}
+}
+
+document.querySelectorAll('.lang-switch button').forEach(function(btn){
+  btn.addEventListener('click', function(){ applyLang(btn.getAttribute('data-lang')); });
+});
+
+applyLang(currentLang);
+
+/* ---------- STRIPE PAYMENT ---------- */
+var payBtn = document.getElementById('payDepositBtn');
+var payError = document.getElementById('payError');
+if(payBtn){
+  payBtn.addEventListener('click', function(){
+    payBtn.disabled = true;
+    payBtn.textContent = 'Redirecting to secure checkout…';
+    payError.style.display = 'none';
+    fetch('/api/create-checkout-session', { method: 'POST' })
+      .then(function(res){ return res.json(); })
+      .then(function(data){
+        if(data.url){ window.location.href = data.url; }
+        else { throw new Error(data.error || 'Something went wrong'); }
+      })
+      .catch(function(err){
+        payError.textContent = 'Payment could not start: ' + err.message;
+        payError.style.display = 'block';
+        payBtn.disabled = false;
+        payBtn.textContent = 'Pay Deposit — €5.00';
+      });
+  });
+}
+
+})();
+</script>
+
+</body></html>
