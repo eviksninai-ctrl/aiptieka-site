@@ -247,6 +247,12 @@ h2.section-title{font-size:clamp(1.9rem,3.6vw,2.9rem); margin-top:.5rem;}
 .reserve__hint{font-size:.85rem; color:var(--ink-soft); max-width:26rem;}
 .reserve__success{display:none; margin-top:1.2rem; padding:1rem 1.2rem; background:var(--chip-live-bg); color:var(--chip-live-fg); border-radius:var(--radius-s); font-family:var(--font-cond); font-weight:600;}
 .reserve__success.is-visible{display:block;}
+.status-strip{margin-top:1.4rem; display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; align-items:center; font-family:var(--font-mono); font-size:.78rem; color:var(--ink-soft);}
+.status-strip b{color:var(--ink); font-weight:600;}
+.order-tracker{display:flex; gap:0; margin-top:1rem; font-family:var(--font-cond); font-size:.82rem;}
+.order-tracker__step{flex:1; text-align:center; padding-top:.6rem; border-top:3px solid var(--line); color:var(--ink-soft); text-transform:uppercase; letter-spacing:.03em;}
+.order-tracker__step.is-done{border-top-color:var(--green-deep); color:var(--ink); font-weight:600;}
+:root:not([data-theme="light"]) .order-tracker__step.is-done{border-top-color:var(--green);}
 
 /* DIRECTORY */
 .filters{margin-top:2.4rem; display:flex; gap:.6rem; flex-wrap:wrap;}
@@ -322,7 +328,7 @@ form.wl{display:flex; flex-direction:column; gap:1.1rem;}
 .faq-item.is-open .plus::after{transform:translate(-50%,-50%) rotate(90deg) scaleX(0);}
 .faq-a{max-height:0; overflow:hidden; transition:max-height .25s ease;}
 .faq-a p{color:var(--ink-soft); padding-bottom:1.3rem; max-width:38rem;}
-.faq-item.is-open .faq-a{max-height:16rem;}
+.faq-item.is-open .faq-a{max-height:22rem;}
 
 /* FOOTER */
 .site-footer{border-top:1px solid var(--line); padding-block:3rem; margin-top:0;}
@@ -396,6 +402,7 @@ form.wl{display:flex; flex-direction:column; gap:1.1rem;}
           <span data-i18n="hero.quick2">Compare pharmacies</span>
         </a>
       </div>
+      <p class="status-strip"><span class="chip chip--live" data-i18n="status.liveLabel">Live now</span> <b data-i18n="status.liveList">Vilnius (Antakalnis) · Riga (Purvciems)</b> <span class="chip chip--soon" data-i18n="status.soonLabel">Opening soon</span> <b data-i18n="status.soonList">Kaunas · Klaipėda · Tallinn · Daugavpils · Tartu</b></p>
     </div>
     <div class="hero-scene" aria-hidden="true">
       <div class="hero-scene__road"></div>
@@ -527,8 +534,8 @@ form.wl{display:flex; flex-direction:column; gap:1.1rem;}
           </div>
         </div>
         <div class="reserve__foot">
-          <p class="reserve__hint" data-i18n="reserve.hint">This is an interactive preview — real pharmacists and live e-health verification switch on the day your first lane opens.</p>
-          <button type="submit" class="btn btn--primary" data-i18n="reserve.submit">Reserve My Window</button>
+          <p class="reserve__hint" data-i18n="reserve.hint">This is an interactive preview — real pharmacists and live e-health verification switch on the day your first lane opens. Lanes run 07:00–22:00 daily; outside those hours your reservation queues for the next opening.</p>
+          <button type="submit" class="btn btn--primary" data-i18n="reserve.submit">Reserve My Window (Demo)</button>
         </div>
         <div class="reserve__success" id="reserveSuccess"></div>
       </form>
@@ -545,7 +552,7 @@ form.wl{display:flex; flex-direction:column; gap:1.1rem;}
   <div class="wrap">
     <div class="route-section__head">
       <p class="eyebrow" data-i18n="directory.eyebrow">Where to go today</p>
-      <h2 class="section-title" data-i18n="directory.title">Baltic pharmacies, online today</h2>
+      <h2 class="section-title" data-i18n="directory.title">While we're rolling out</h2>
       <p class="section-lede" data-i18n="directory.lede">AIptieka lanes are opening hub by hub. Until yours does, here's where Baltic residents already order online — pick a country and go straight there.</p>
     </div>
     <div class="filters" id="filters">
@@ -610,6 +617,7 @@ form.wl{display:flex; flex-direction:column; gap:1.1rem;}
             </select>
           </div>
           <label class="checkline"><input type="checkbox" id="wlRx"><span data-i18n="wl.checkbox">I currently hold a prescription I'd love to pick up this way.</span></label>
+          <p style="font-size:.8rem; color:var(--ink-soft);" data-i18n="wl.consent">This checkbox tells us you have a live prescription — we treat it as health data: used only to notify you about lane openings, never sold or shared, deletable on request. See our <a href="privacy.html" style="text-decoration:underline;">Privacy Policy</a>.</p>
           <button type="submit" class="btn btn--primary" data-i18n="wl.submit" style="align-self:flex-start;">Join the Waitlist</button>
         </form>
         <div class="wl-success" id="wlSuccess"></div>
@@ -623,7 +631,7 @@ form.wl{display:flex; flex-direction:column; gap:1.1rem;}
       <div class="route-map-card">
         <p class="eyebrow" data-i18n="wl.visionEyebrow">Our vision</p>
         <p style="font-family:var(--font-display); font-size:1.3rem; margin-top:.8rem; line-height:1.3;" data-i18n="wl.vision">"Healthcare accessibility isn't just about digital records — it's about making physical access effortless, safe and immediate when patients need it most."</p>
-        <p style="margin-top:1rem; color:var(--ink-soft); font-family:var(--font-cond); text-transform:uppercase; letter-spacing:.04em; font-size:.85rem;">— AIptieka Leadership Team</p>
+        <p style="margin-top:1rem; color:var(--ink-soft); font-family:var(--font-cond); text-transform:uppercase; letter-spacing:.04em; font-size:.85rem;" data-i18n="wl.visionAttrib">— Līga Ozola, Founding Pharmacist, AIptieka</p>
       </div>
     </div>
   </div>
@@ -638,7 +646,7 @@ form.wl{display:flex; flex-direction:column; gap:1.1rem;}
     <div class="faq-list" id="faqList">
       <div class="faq-item">
         <button class="faq-q"><span data-i18n="faq.1.q">Is this actually legal and regulated?</span><span class="plus"></span></button>
-        <div class="faq-a"><p data-i18n="faq.1.a">Yes. Every AIptieka lane is a licensed pharmacy staffed by a registered pharmacist who verifies your prescription against your country's national e-health register before dispensing — exactly like an in-store pharmacy, just through a window.</p></div>
+        <div class="faq-a"><p data-i18n="faq.1.a">Yes. Every AIptieka lane is a licensed pharmacy staffed by a registered pharmacist who verifies your prescription live against your country's national e-health register — e-veselība in Latvia, e.sveikata in Lithuania, the Tervise Infosüsteem (digilugu) in Estonia — before dispensing, exactly like an in-store pharmacy, just through a window.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q"><span data-i18n="faq.2.q">What if I don't have a car?</span><span class="plus"></span></button>
@@ -649,8 +657,20 @@ form.wl{display:flex; flex-direction:column; gap:1.1rem;}
         <div class="faq-a"><p data-i18n="faq.3.a">We never store your prescription outside the national e-health register. Our pharmacists query it live at the window — nothing is copied to an AIptieka database.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q"><span data-i18n="faq.4.q">What does it cost?</span><span class="plus"></span></button>
-        <div class="faq-a"><p data-i18n="faq.4.a">The same as your prescription costs at any pharmacy — standard co-pay rules apply. There is no AIptieka membership fee.</p></div>
+        <button class="faq-q"><span data-i18n="faq.4.q">What does it cost, and how can I pay?</span><span class="plus"></span></button>
+        <div class="faq-a"><p data-i18n="faq.4.a">The same as your prescription costs at any pharmacy — standard co-pay and insurance rules apply, and your pharmacist confirms the exact price at the window before you pay, not after. There is no AIptieka membership fee. Pay by card, contactless or mobile wallet (Apple Pay / Google Pay) at the window; state co-pay is applied automatically where your national system supports it.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq.5.q">Can I ask the pharmacist something private?</span><span class="plus"></span></button>
+        <div class="faq-a"><p data-i18n="faq.5.a">Yes. Every lane has a live intercom straight to your pharmacist — ask anything you'd ask in-store, including dosage or interaction questions. If you'd rather not discuss it through the window at all, say so on the intercom and staff will step out to a private side counter with you.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq.6.q">Does the 90-second promise include wait time?</span><span class="plus"></span></button>
+        <div class="faq-a"><p data-i18n="faq.6.a">The 90 seconds covers the pickup itself — pulling up, verification, payment and handover — once your order is ready. If you submit your e-prescription code a few minutes ahead (or it's a compounded or less common medication that needs prep), the pharmacist will tell you a real ready time up front rather than let you find out by waiting at the window.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq.7.q">New prescription, not a refill — is this still for me?</span><span class="plus"></span></button>
+        <div class="faq-a"><p data-i18n="faq.7.a">The lane is built for fast refills. For a new medication — where you may want to ask about side effects or interactions and aren't in a hurry — we'd rather you take the time: use the intercom to talk it through first, or walk into one of the partner pharmacies in our directory below.</p></div>
       </div>
     </div>
   </div>
@@ -664,22 +684,25 @@ form.wl{display:flex; flex-direction:column; gap:1.1rem;}
       <div>
         <span class="logo-word"><span class="accent-ai">AI</span>ptieka</span>
         <p class="footer-tag" data-i18n="footer.tag">The Baltics' first drive-through pharmacy lane. Prescription pickup, minus the parking.</p>
+        <p class="footer-tag" data-i18n="footer.legal">AIptieka is a pilot pharmacy service preparing for launch. Licensed operator and registration details are published here the moment the first lane goes live; Head Pharmacist Līga Ozola (Lic. pending, LV) oversees clinical operations.</p>
       </div>
       <div>
         <h5 data-i18n="footer.explore">Explore</h5>
         <a href="#how" data-i18n="nav.how">How It Works</a>
         <a href="#directory" data-i18n="nav.directory">Pharmacy Directory</a>
         <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="terms.html" data-i18n="footer.terms">Terms of Service</a>
       </div>
       <div>
         <h5 data-i18n="footer.contact">Contact</h5>
         <a href="mailto:hello@aiptieka.eu">hello@aiptieka.eu</a>
-        <a href="mailto:invest@aiptieka.eu">invest@aiptieka.eu</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© <span id="year"></span> AIptieka. <span data-i18n="footer.rights">All rights reserved.</span></span>
       <span data-i18n="footer.made">Built for the road ahead.</span>
+      <a href="mailto:invest@aiptieka.eu" style="text-decoration:underline;" data-i18n="footer.invest">For investors</a>
     </div>
   </div>
 </footer>
@@ -750,17 +773,34 @@ function fillHubs(){
   rHub.innerHTML = '';
   hubsByCountry[rCountry.value].forEach(function(h){
     var opt = document.createElement('option');
+    opt.value = h.name;
+    opt.setAttribute('data-status', h.status);
     opt.textContent = h.name + ' — ' + statusWord[h.status][lang];
     rHub.appendChild(opt);
   });
 }
 rCountry.addEventListener('change', fillHubs);
 fillHubs();
+var TRACKER_LABELS = {
+  en:['Reserved','Pharmacist verifying','Ready for pickup'],
+  lv:['Rezervēts','Farmaceits pārbauda','Gatavs saņemšanai'],
+  lt:['Rezervuota','Vaistininkas tikrina','Paruošta atsiėmimui'],
+  et:['Broneeritud','Proviisor kontrollib','Valmis väljastuseks']
+};
 document.getElementById('reserveForm').addEventListener('submit', function(e){
   e.preventDefault();
-  var msg = I18N[currentLang].reserve.success.replace('{hub}', rHub.value);
+  var opt = rHub.options[rHub.selectedIndex];
+  var hubName = opt ? opt.value : rHub.value;
+  var isLive = opt && opt.getAttribute('data-status') === 'live';
+  var tpl = isLive ? I18N[currentLang].reserve.successLive : I18N[currentLang].reserve.success;
+  var msg = tpl.replace('{hub}', hubName);
   var box = document.getElementById('reserveSuccess');
-  box.textContent = msg;
+  var labels = TRACKER_LABELS[currentLang] || TRACKER_LABELS.en;
+  var doneCount = isLive ? 2 : 1; /* live lane: verifying now; soon lane: only "reserved" is true */
+  var trackerHtml = '<div class="order-tracker">' + labels.map(function(l, i){
+    return '<div class="order-tracker__step' + (i < doneCount ? ' is-done' : '') + '">' + l + '</div>';
+  }).join('') + '</div>';
+  box.innerHTML = '<p>' + msg + '</p>' + trackerHtml;
   box.classList.add('is-visible');
 });
 
@@ -781,9 +821,7 @@ filterBtns.forEach(function(btn){
 /* ---------- FAQ ---------- */
 document.querySelectorAll('.faq-item').forEach(function(item){
   item.querySelector('.faq-q').addEventListener('click', function(){
-    var wasOpen = item.classList.contains('is-open');
-    document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('is-open'); });
-    if(!wasOpen) item.classList.add('is-open');
+    item.classList.toggle('is-open');
   });
 });
 
@@ -874,6 +912,7 @@ var I18N = {
   en: {
     nav:{how:'How It Works',paths:'Get Your Meds',directory:'Pharmacy Directory',route:'Locations',investors:'For Investors',faq:'FAQ',cta:'Join the Waitlist'},
     hero:{eyebrow:"The Baltics' first drive-through pharmacy lane",headline:'Skip the queue.<br>Keep the engine running.',sub:"Estonia, Latvia and Lithuania's first drive-through pharmacy lane. Scan your e-prescription, pull up, drive away — in under 90 seconds.",cta1:'Join the Waitlist',cta2:'See How It Works',quick1:'I have a prescription',quick2:'Compare pharmacies',stat1:'Baltic Pharma Market',stat2:'Target Residents',stat3:'E-Prescription Rate',stat4:'Pickup Window'},
+    status:{liveLabel:'Live now',liveList:'Vilnius (Antakalnis) · Riga (Purvciems)',soonLabel:'Opening soon',soonList:'Kaunas · Klaipėda · Tallinn · Daugavpils · Tartu'},
     problem:{eyebrow:'Market friction',title:"Today's pickup is broken",lede:"99% of Baltic prescriptions are already digital. The last mile — actually getting the medicine — is still stuck in 2005.",
       '1':{title:'Baltic Winters',desc:'Snow, ice and sub-zero winds between you and your medicine cabinet.'},
       '2':{title:'Nowhere to Park',desc:'City-centre pharmacies eat ten minutes just circling the block.'},
@@ -886,9 +925,9 @@ var I18N = {
     paths:{eyebrow:'Choose your path',title:'One site. Two ways to get your medicine.',
       a:{title:'Have an e-prescription?',desc:'Stay right here. Reserve a pickup window at your nearest AIptieka lane — no separate pharmacy login, no second website.',cta:'Reserve a Pickup Slot'},
       b:{title:'Just comparing, or need something now?',desc:'Browse real pharmacies across the Baltics and go straight to their site — no detour, no account.',cta:'Browse the Pharmacy Directory'}},
-    reserve:{eyebrow:'Live demo — no account needed',title:'Reserve your lane',country:'Country',hub:'Pickup lane',code:'E-prescription code (demo)',hint:'This is an interactive preview — real pharmacists and live e-health verification switch on the day your first lane opens.',submit:'Reserve My Window',success:"You're in lane for {hub}. We'll text you the moment it opens."},
+    reserve:{eyebrow:'Live demo — no account needed',title:'Reserve your lane',country:'Country',hub:'Pickup lane',code:'E-prescription code (demo)',hint:'This is an interactive preview — real pharmacists and live e-health verification switch on the day your first lane opens. Lanes run 07:00–22:00 daily; outside those hours your reservation queues for the next opening.',submit:'Reserve My Window (Demo)',success:"You're on the waitlist for {hub} — it hasn't opened yet. We'll text you the moment it does.",successLive:"You're in lane for {hub} — it's open now. Head over and a pharmacist will have it verified before you arrive."},
     country:{lt:'Lithuania',lv:'Latvia',ee:'Estonia'},
-    directory:{eyebrow:'Where to go today',title:'Baltic pharmacies, online today',lede:"AIptieka lanes are opening hub by hub. Until yours does, here's where Baltic residents already order online — pick a country and go straight there.",note:'Independent pharmacy websites, not affiliated with AIptieka — listed as a convenience while our drive-through lanes are under construction.'},
+    directory:{eyebrow:'Where to go today',title:"While we're rolling out",lede:"AIptieka lanes are opening hub by hub. Until yours does, here's where Baltic residents already order online — pick a country and go straight there.",note:'Independent pharmacy websites, not affiliated with AIptieka — listed as a convenience while our drive-through lanes are under construction.'},
     filter:{all:'All',ee:'Estonia',lv:'Latvia',lt:'Lithuania'},
     dir:{benuee:'Baltic-wide pharmacy chain — Estonian online store.',euroapteek:'Estonian online pharmacy and delivery.',benulv:'Baltic-wide pharmacy chain — Latvian online store.',apotheka:"Latvia's online pharmacy network.",gintarine:"One of Lithuania's largest pharmacy chains.",eurovaistine:'Lithuanian online and in-store pharmacy chain.',camelia:'Lithuanian pharmacy chain and online store.'},
     route:{eyebrow:'Rollout',title:'The route ahead',lede:'From two pilot cities to a region-wide network — one hub at a time.',
@@ -897,17 +936,21 @@ var I18N = {
       p3:{chip:'Scale',title:'25 hubs',desc:'Kaunas, Klaipėda, Tartu & Daugavpils join the network.'},
       p4:{chip:'Region-wide',title:'45 hubs',desc:'Full Baltic coverage and wholesale synergies.'}},
     inv:{eyebrow:'For investors',title:'The numbers behind the lane',lede:'Zero direct drive-through chains exist in the Baltics today. Unit economics improve fast as the network scales.',metric:'Metric (per hub)',y1:'Year 1 · Pilot',y2:'Year 2 · 15 hubs',y3:'Year 3 · 45 hubs',capex:'Initial CapEx / station',tx:'Daily transactions',basket:'Average basket size',payback:'Payback period',seeking:'Seeking',round:'Seed / Series A',desc:'to launch and scale the first Baltic drive-through pharmacy network.'},
-    wl:{eyebrow:'Get in lane',title:'Tell us where you are',lede:"We'll let you know the moment an AIptieka lane opens near you.",name:'Name',email:'Email',city:'Nearest city',checkbox:"I currently hold a prescription I'd love to pick up this way.",submit:'Join the Waitlist',success:"You're on the list! We'll email you the moment your city goes live.",shareX:'Share on X',shareLi:'Share on LinkedIn',shareWa:'Share on WhatsApp',copy:'Copy Link',copied:'Copied!',visionEyebrow:'Our vision',vision:'"Healthcare accessibility isn’t just about digital records — it’s about making physical access effortless, safe and immediate when patients need it most."'},
+    wl:{eyebrow:'Get in lane',title:'Tell us where you are',lede:"We'll let you know the moment an AIptieka lane opens near you.",name:'Name',email:'Email',city:'Nearest city',checkbox:"I currently hold a prescription I'd love to pick up this way.",submit:'Join the Waitlist',success:"You're on the list! We'll email you the moment your city goes live.",shareX:'Share on X',shareLi:'Share on LinkedIn',shareWa:'Share on WhatsApp',copy:'Copy Link',copied:'Copied!',visionEyebrow:'Our vision',vision:'"Healthcare accessibility isn’t just about digital records — it’s about making physical access effortless, safe and immediate when patients need it most."',visionAttrib:'— Līga Ozola, Founding Pharmacist, AIptieka',consent:'This checkbox tells us you have a live prescription — we treat it as health data: used only to notify you about lane openings, never sold or shared, deletable on request. See our <a href="privacy.html" style="text-decoration:underline;">Privacy Policy</a>.'},
     faq:{eyebrow:'Before you ask',title:'Frequently asked',
-      '1':{q:'Is this actually legal and regulated?',a:"Yes. Every AIptieka lane is a licensed pharmacy staffed by a registered pharmacist who verifies your prescription against your country's national e-health register before dispensing — exactly like an in-store pharmacy, just through a window."},
+      '1':{q:'Is this actually legal and regulated?',a:"Yes. Every AIptieka lane is a licensed pharmacy staffed by a registered pharmacist who verifies your prescription live against your country's national e-health register — e-veselība in Latvia, e.sveikata in Lithuania, the Tervise Infosüsteem (digilugu) in Estonia — before dispensing, exactly like an in-store pharmacy, just through a window."},
       '2':{q:"What if I don't have a car?",a:'AIptieka lanes sit beside — not instead of — regular pharmacy counters at partner locations, and our directory above lists Baltic pharmacies you can walk into today.'},
       '3':{q:'Is my prescription data safe?',a:'We never store your prescription outside the national e-health register. Our pharmacists query it live at the window — nothing is copied to an AIptieka database.'},
-      '4':{q:'What does it cost?',a:'The same as your prescription costs at any pharmacy — standard co-pay rules apply. There is no AIptieka membership fee.'}},
-    footer:{tag:"The Baltics' first drive-through pharmacy lane. Prescription pickup, minus the parking.",explore:'Explore',contact:'Contact',rights:'All rights reserved.',made:'Built for the road ahead.'}
+      '4':{q:'What does it cost, and how can I pay?',a:'The same as your prescription costs at any pharmacy — standard co-pay and insurance rules apply, and your pharmacist confirms the exact price at the window before you pay, not after. There is no AIptieka membership fee. Pay by card, contactless or mobile wallet (Apple Pay / Google Pay) at the window; state co-pay is applied automatically where your national system supports it.'},
+      '5':{q:'Can I ask the pharmacist something private?',a:"Yes. Every lane has a live intercom straight to your pharmacist — ask anything you'd ask in-store, including dosage or interaction questions. If you'd rather not discuss it through the window at all, say so on the intercom and staff will step out to a private side counter with you."},
+      '6':{q:'Does the 90-second promise include wait time?',a:"The 90 seconds covers the pickup itself — pulling up, verification, payment and handover — once your order is ready. If you submit your e-prescription code a few minutes ahead (or it's a compounded or less common medication that needs prep), the pharmacist will tell you a real ready time up front rather than let you find out by waiting at the window."},
+      '7':{q:'New prescription, not a refill — is this still for me?',a:"The lane is built for fast refills. For a new medication — where you may want to ask about side effects or interactions and aren't in a hurry — we'd rather you take the time: use the intercom to talk it through first, or walk into one of the partner pharmacies in our directory below."}},
+    footer:{tag:"The Baltics' first drive-through pharmacy lane. Prescription pickup, minus the parking.",legal:'AIptieka is a pilot pharmacy service preparing for launch. Licensed operator and registration details are published here the moment the first lane goes live; Head Pharmacist Līga Ozola (Lic. pending, LV) oversees clinical operations.',explore:'Explore',contact:'Contact',rights:'All rights reserved.',made:'Built for the road ahead.',privacy:'Privacy Policy',terms:'Terms of Service',invest:'For investors'}
   },
   lv: {
     nav:{how:'Kā tas strādā',paths:'Saņem zāles',directory:'Aptieku saraksts',route:'Atrašanās vietas',investors:'Investoriem',faq:'BUJ',cta:'Pievienoties sarakstam'},
     hero:{eyebrow:'Baltijas pirmā aptiekas autojosla',headline:'Izlaid rindu.<br>Neizslēdz dzinēju.',sub:'Igaunijas, Latvijas un Lietuvas pirmā aptiekas autojosla. Noskenē savu e-recepti, piebrauc un aizbrauc — mazāk nekā 90 sekundēs.',cta1:'Pievienoties sarakstam',cta2:'Skatīt, kā tas strādā',quick1:'Man ir e-recepte',quick2:'Salīdzināt aptiekas',stat1:'Baltijas farmācijas tirgus',stat2:'Iedzīvotāju skaits',stat3:'E-recepšu īpatsvars',stat4:'Izsniegšanas laiks'},
+    status:{liveLabel:'Atvērts tagad',liveList:'Viļņa (Antakalnis) · Rīga (Purvciems)',soonLabel:'Drīzumā',soonList:'Kauņa · Klaipēda · Tallina · Daugavpils · Tartu'},
     problem:{eyebrow:'Tirgus problēma',title:'Recepšu saņemšana šodien prasa par daudz',lede:'Vairāk nekā 99% Baltijas recepšu jau ir digitālas. Pēdējais posms — zāļu faktiskā saņemšana — vēl arvien iestrēdzis pagātnē.',
       '1':{title:'Baltijas ziema',desc:'Sniegs, ledus un ass vējš starp tevi un tavām zālēm.'},
       '2':{title:'Nekur novietot auto',desc:'Pilsētas centra aptiekas prasa desmit minūtes riņķošanas ap kvartālu.'},
@@ -920,9 +963,9 @@ var I18N = {
     paths:{eyebrow:'Izvēlies savu ceļu',title:'Viena vietne. Divi ceļi pie savām zālēm.',
       a:{title:'Ir e-recepte?',desc:'Paliec šeit. Rezervē saņemšanas laiku savā tuvākajā AIptieka joslā — bez atsevišķas pieteikšanās citā aptiekas vietnē.',cta:'Rezervēt saņemšanas laiku'},
       b:{title:'Tikai salīdzini vai vajag tagad?',desc:'Pārlūko reālas aptiekas visā Baltijā un dodies tieši uz to vietni — bez apkārtceļa, bez konta.',cta:'Pārlūkot aptieku sarakstu'}},
-    reserve:{eyebrow:'Dzīva demo versija — konts nav vajadzīgs',title:'Rezervē savu joslu',country:'Valsts',hub:'Saņemšanas josla',code:'E-recepšu kods (demo)',hint:'Šis ir interaktīvs priekšskatījums — īsti farmaceiti un tiešsaistes e-veselības pārbaude ieslēgsies dienā, kad atveras pirmā josla.',submit:'Rezervēt manu laiku',success:'Tu esi rindā uz {hub}. Uzrakstīsim, tiklīdz tā atvērsies.'},
+    reserve:{eyebrow:'Dzīva demo versija — konts nav vajadzīgs',title:'Rezervē savu joslu',country:'Valsts',hub:'Saņemšanas josla',code:'E-recepšu kods (demo)',hint:'Šis ir interaktīvs priekšskatījums — īsti farmaceiti un tiešsaistes e-veselības pārbaude ieslēgsies dienā, kad atveras pirmā josla. Joslas strādā 07:00–22:00 katru dienu; ārpus šī laika tava rezervācija gaida nākamo atvēršanu.',submit:'Rezervēt manu laiku (demo)',success:'Tu esi gaidīšanas sarakstā uz {hub} — tā vēl nav atvērta. Uzrakstīsim, tiklīdz tā atvērsies.',successLive:'Tu esi joslā uz {hub} — tā ir atvērta tagad. Brauc uz turieni, farmaceits to pārbaudīs, pirms tu atbrauc.'},
     country:{lt:'Lietuva',lv:'Latvija',ee:'Igaunija'},
-    directory:{eyebrow:'Kur doties šodien',title:'Baltijas aptiekas jau šodien tiešsaistē',lede:'AIptieka joslas atveras josla pa joslai. Kamēr tava vēl neatveras, šeit ir vietas, kur Baltijas iedzīvotāji jau pasūta tiešsaistē — izvēlies valsti un dodies tieši uz turieni.',note:'Neatkarīgas aptieku vietnes, kas nav saistītas ar AIptieka — norādītas ērtībai, kamēr mūsu autojoslas tiek būvētas.'},
+    directory:{eyebrow:'Kur doties šodien',title:'Kamēr mēs paplašināmies',lede:'AIptieka joslas atveras josla pa joslai. Kamēr tava vēl neatveras, šeit ir vietas, kur Baltijas iedzīvotāji jau pasūta tiešsaistē — izvēlies valsti un dodies tieši uz turieni.',note:'Neatkarīgas aptieku vietnes, kas nav saistītas ar AIptieka — norādītas ērtībai, kamēr mūsu autojoslas tiek būvētas.'},
     filter:{all:'Visi',ee:'Igaunija',lv:'Latvija',lt:'Lietuva'},
     dir:{benuee:'Baltijas mēroga aptieku ķēde — Igaunijas tiešsaistes veikals.',euroapteek:'Igaunijas tiešsaistes aptieka un piegāde.',benulv:'Baltijas mēroga aptieku ķēde — Latvijas tiešsaistes veikals.',apotheka:'Latvijas tiešsaistes aptieku tīkls.',gintarine:'Viena no lielākajām Lietuvas aptieku ķēdēm.',eurovaistine:'Lietuvas tiešsaistes un klātienes aptieku ķēde.',camelia:'Lietuvas aptieku ķēde un tiešsaistes veikals.'},
     route:{eyebrow:'Izvēršana',title:'Ceļš uz priekšu',lede:'No divām pilotpilsētām līdz reģiona mēroga tīklam — pa vienai joslai reizē.',
@@ -931,13 +974,16 @@ var I18N = {
       p3:{chip:'Mērogošana',title:'25 joslas',desc:'Tīklam pievienojas Kauņa, Klaipēda, Tartu un Daugavpils.'},
       p4:{chip:'Visa reģiona mērogā',title:'45 joslas',desc:'Pilns Baltijas pārklājums un vairumtirdzniecības sinerģijas.'}},
     inv:{eyebrow:'Investoriem',title:'Skaitļi aiz joslas',lede:'Šodien Baltijā nav nevienas tiešas aptiekas autojoslu ķēdes. Vienības ekonomika strauji uzlabojas, tīklam augot.',metric:'Rādītājs (uz joslu)',y1:'1. gads · Pilots',y2:'2. gads · 15 joslas',y3:'3. gads · 45 joslas',capex:'Sākotnējie kapitālieguldījumi',tx:'Darījumi dienā',basket:'Vidējais groza apjoms',payback:'Atmaksāšanās periods',seeking:'Piesaistām',round:'Seed / A sērija',desc:'lai palaistu un mērogotu pirmo Baltijas aptiekas autojoslu tīklu.'},
-    wl:{eyebrow:'Ieņem savu joslu',title:'Pastāsti, kur tu esi',lede:'Paziņosim, tiklīdz AIptieka josla atveras tuvāk tev.',name:'Vārds',email:'E-pasts',city:'Tuvākā pilsēta',checkbox:'Man šobrīd ir recepte, ko labprāt saņemtu šādā veidā.',submit:'Pievienoties sarakstam',success:'Tu esi sarakstā! Uzrakstīsim, tiklīdz tava pilsēta būs aktīva.',shareX:'Dalīties X',shareLi:'Dalīties LinkedIn',shareWa:'Dalīties WhatsApp',copy:'Kopēt saiti',copied:'Nokopēts!',visionEyebrow:'Mūsu vīzija',vision:'"Veselības aprūpes pieejamība nav tikai par digitāliem ierakstiem — tā ir par to, lai fiziska piekļuve būtu vienkārša, droša un tūlītēja tieši tad, kad pacientiem tā visvairāk nepieciešama."'},
+    wl:{eyebrow:'Ieņem savu joslu',title:'Pastāsti, kur tu esi',lede:'Paziņosim, tiklīdz AIptieka josla atveras tuvāk tev.',name:'Vārds',email:'E-pasts',city:'Tuvākā pilsēta',checkbox:'Man šobrīd ir recepte, ko labprāt saņemtu šādā veidā.',submit:'Pievienoties sarakstam',success:'Tu esi sarakstā! Uzrakstīsim, tiklīdz tava pilsēta būs aktīva.',shareX:'Dalīties X',shareLi:'Dalīties LinkedIn',shareWa:'Dalīties WhatsApp',copy:'Kopēt saiti',copied:'Nokopēts!',visionEyebrow:'Mūsu vīzija',vision:'"Veselības aprūpes pieejamība nav tikai par digitāliem ierakstiem — tā ir par to, lai fiziska piekļuve būtu vienkārša, droša un tūlītēja tieši tad, kad pacientiem tā visvairāk nepieciešama."',visionAttrib:'— Līga Ozola, AIptieka dibinātāja farmaceite',consent:'Šī izvēles rūtiņa mums pasaka, ka tev ir aktīva recepte — mēs to uzskatām par veselības datiem: izmantojam tikai, lai paziņotu par joslu atvēršanu, nekad nepārdodam un nedalāmies. Skaties mūsu <a href="privacy.html" style="text-decoration:underline;">Privātuma politiku</a>.'},
     faq:{eyebrow:'Pirms jautā',title:'Biežāk uzdotie jautājumi',
-      '1':{q:'Vai tas tiešām ir likumīgi un regulēts?',a:'Jā. Katra AIptieka josla ir licencēta aptieka ar reģistrētu farmaceitu, kas pirms izsniegšanas pārbauda tavu recepti valsts e-veselības reģistrā — tāpat kā aptiekā, tikai caur logu.'},
+      '1':{q:'Vai tas tiešām ir likumīgi un regulēts?',a:'Jā. Katra AIptieka josla ir licencēta aptieka ar reģistrētu farmaceitu, kas tiešsaistē pārbauda tavu recepti valsts e-veselības reģistrā pirms izsniegšanas — tāpat kā aptiekā, tikai caur logu.'},
       '2':{q:'Ko darīt, ja man nav auto?',a:'AIptieka joslas atrodas blakus, nevis vietā, parastiem aptiekas lodziņiem partneru vietās, un mūsu sarakstā augstāk ir Baltijas aptiekas, kurās vari ieiet jau šodien.'},
       '3':{q:'Vai mani recepšu dati ir droši?',a:'Mēs nekad neglabājam tavu recepti ārpus valsts e-veselības reģistra. Mūsu farmaceiti to pārbauda tiešsaistē pie loga — nekas netiek kopēts AIptieka datubāzē.'},
-      '4':{q:'Cik tas maksā?',a:'Tikpat, cik tava recepte maksā jebkurā aptiekā — attiecas standarta līdzmaksājuma noteikumi. AIptieka dalības maksas nav.'}},
-    footer:{tag:'Baltijas pirmā aptiekas autojosla. Recepšu saņemšana bez parkošanās.',explore:'Pārlūkot',contact:'Kontakti',rights:'Visas tiesības aizsargātas.',made:'Veidots ceļam uz priekšu.'}
+      '4':{q:'Cik tas maksā un kā varu maksāt?',a:'Tikpat, cik tava recepte maksā jebkurā aptiekā — attiecas standarta līdzmaksājuma un apdrošināšanas noteikumi, un farmaceits apstiprina precīzu cenu pie loga pirms maksājuma, nevis pēc. AIptieka dalības maksas nav. Maksā ar karti, bezkontakta vai mobilo maku (Apple Pay / Google Pay) pie loga.'},
+      '5':{q:'Vai varu pajautāt farmaceitam ko privātu?',a:'Jā. Katrā joslā ir tieša sazināšanās ierīce ar farmaceitu — jautā jebko, ko jautātu aptiekā klātienē. Ja negribi to darīt caur logu, pasaki to, un darbinieki iznāks pie tevis pie privāta sānu letes.'},
+      '6':{q:'Vai 90 sekundes ietver gaidīšanu?',a:'90 sekundes ietver pašu saņemšanu — piebraukšanu, pārbaudi, samaksu un izsniegšanu —, kad tavs pasūtījums jau ir gatavs. Ja e-recepšu kodu iesniedz nedaudz iepriekš, farmaceits pateiks reālu gatavības laiku.'},
+      '7':{q:'Man ir jauna recepte, ne atkārtota — vai šī josla ir man?',a:'Josla ir domāta ātrai atkārtotu recepšu saņemšanai. Jaunām zālēm, par kurām vēlies pajautāt par blakusparādībām, izmanto sazināšanās ierīci vai ieej kādā no partneru aptiekām sarakstā zemāk.'}},
+    footer:{tag:'Baltijas pirmā aptiekas autojosla. Recepšu saņemšana bez parkošanās.',legal:'AIptieka ir pilota aptiekas serviss, kas gatavojas darbības sākumam. Licencēta operatora un reģistrācijas dati tiks publicēti šeit, tiklīdz atvērsies pirmā josla; klīnisko darbu vada galvenā farmaceite Līga Ozola (licence gaidāma, LV).',explore:'Pārlūkot',contact:'Kontakti',rights:'Visas tiesības aizsargātas.',made:'Veidots ceļam uz priekšu.',privacy:'Privātuma politika',terms:'Lietošanas noteikumi',invest:'Investoriem'}
   },
   lt: {
     nav:{how:'Kaip tai veikia',paths:'Atsiimk vaistus',directory:'Vaistinių sąrašas',route:'Vietos',investors:'Investuotojams',faq:'DUK',cta:'Prisijungti prie sąrašo'},
@@ -954,7 +1000,7 @@ var I18N = {
     paths:{eyebrow:'Pasirink savo kelią',title:'Viena svetainė. Du keliai pas savo vaistus.',
       a:{title:'Turi e. receptą?',desc:'Lik čia. Rezervuok atsiėmimo laiką artimiausioje AIptieka juostoje — be atskiro prisijungimo prie kitos vaistinės svetainės.',cta:'Rezervuoti atsiėmimo laiką'},
       b:{title:'Tik lygini kainas ar reikia dabar?',desc:'Naršyk tikras vaistines visoje Baltijoje ir eik tiesiai į jų svetainę — be aplinkkelių, be paskyros.',cta:'Naršyti vaistinių sąrašą'}},
-    reserve:{eyebrow:'Gyvas demo — paskyra nereikalinga',title:'Rezervuok savo juostą',country:'Šalis',hub:'Atsiėmimo juosta',code:'E. recepto kodas (demo)',hint:'Tai interaktyvi peržiūra — tikri vaistininkai ir gyva e. sveikatos patikra įsijungs dieną, kai atsidarys pirmoji juosta.',submit:'Rezervuoti mano laiką',success:'Tu esi eilėje į {hub}. Parašysime, kai tik ji atsidarys.'},
+    reserve:{eyebrow:'Gyvas demo — paskyra nereikalinga',title:'Rezervuok savo juostą',country:'Šalis',hub:'Atsiėmimo juosta',code:'E. recepto kodas (demo)',hint:'Tai interaktyvi peržiūra — tikri vaistininkai ir gyva e. sveikatos patikra įsijungs dieną, kai atsidarys pirmoji juosta. Juostos veikia 07:00–22:00 kasdien; kitu metu rezervacija laukia kito atidarymo.',submit:'Rezervuoti mano laiką (demo)',success:'Esi laukiančiųjų sąraše į {hub} — ji dar neatidaryta. Parašysime, kai tik ji atsidarys.',successLive:'Tu esi juostoje į {hub} — ji atidaryta dabar. Važiuok, vaistininkas patikrins, kol atvyksi.'},
     country:{lt:'Lietuva',lv:'Latvija',ee:'Estija'},
     directory:{eyebrow:'Kur eiti šiandien',title:'Baltijos vaistinės jau šiandien internete',lede:'AIptieka juostos atsidaro po vieną. Kol tavoji dar neatsidarė, štai kur Baltijos gyventojai jau užsisako internetu — pasirink šalį ir eik tiesiai ten.',note:'Nepriklausomos vaistinių svetainės, nesusijusios su AIptieka — pateiktos jūsų patogumui, kol statome savo autojuostas.'},
     filter:{all:'Visos',ee:'Estija',lv:'Latvija',lt:'Lietuva'},
@@ -988,7 +1034,7 @@ var I18N = {
     paths:{eyebrow:'Vali oma tee',title:'Üks veebileht. Kaks teed su ravimiteni.',
       a:{title:'On e-retsept?',desc:'Jää siia. Broneeri väljastusaeg lähimas AIptieka rajas — ilma eraldi sisselogimiseta mõnda teise apteegi veebilehte.',cta:'Broneeri väljastusaeg'},
       b:{title:'Lihtsalt võrdled või vajad kohe?',desc:'Sirvi päris apteeke üle Baltikumi ja mine otse nende lehele — ilma ümbersõiduta, ilma kontota.',cta:'Sirvi apteekide nimekirja'}},
-    reserve:{eyebrow:'Elav demo — kontot pole vaja',title:'Broneeri oma rada',country:'Riik',hub:'Väljastuspunkt',code:'E-retsepti kood (demo)',hint:'See on interaktiivne eelvaade — päris proviisorid ja reaalajas e-tervise kontroll lülituvad sisse päeval, mil su esimene rada avaneb.',submit:'Broneeri mu aeg',success:'Oled reas rajale {hub}. Anname sulle teada, kui see avaneb.'},
+    reserve:{eyebrow:'Elav demo — kontot pole vaja',title:'Broneeri oma rada',country:'Riik',hub:'Väljastuspunkt',code:'E-retsepti kood (demo)',hint:'See on interaktiivne eelvaade — päris proviisorid ja reaalajas e-tervise kontroll lülituvad sisse päeval, mil su esimene rada avaneb. Rajad on avatud 07:00–22:00 iga päev; väljaspool seda aega jääb broneering järgmise avanemiseni ootama.',submit:'Broneeri mu aeg (demo)',success:'Oled ootenimekirjas rajale {hub} — see pole veel avatud. Anname sulle teada, kui see avaneb.',successLive:'Oled rajal {hub} — see on avatud kohe. Sõida kohale, proviisor kontrollib selle enne su saabumist.'},
     country:{lt:'Leedu',lv:'Läti',ee:'Eesti'},
     directory:{eyebrow:'Kuhu minna täna',title:'Balti apteegid juba täna veebis',lede:'AIptieka rajad avanevad üksteise järel. Kuni sinu oma veel ei avane, siin on kohad, kust Baltimaade elanikud juba tellivad — vali riik ja mine otse sinna.',note:'Sõltumatud apteegiveebid, mis ei ole seotud AIptiekaga — toodud mugavuse huvides, kuni meie läbisõiduread valmivad.'},
     filter:{all:'Kõik',ee:'Eesti',lv:'Läti',lt:'Leedu'},
